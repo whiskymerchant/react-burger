@@ -7,9 +7,6 @@ import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import cn from 'classnames';
 
-console.log(BURGER_INGREDIENTS_API);
-const testTest = getIngredients();
-console.log(testTest);
 
 const App = () => {
 
@@ -30,6 +27,6 @@ const App = () => {
     </main>
   </div>
   )
-}
+};
 
 export default App;

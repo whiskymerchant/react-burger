@@ -1,7 +1,14 @@
 .section {
   max-width: 600px;
+
 }
 
 .selector {
   display: flex;
+}
+
+.ingredients {
+  overflow-y: scroll;
+  height: 815px;
+
 }

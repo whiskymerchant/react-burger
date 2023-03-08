@@ -11,24 +11,31 @@ const BurgerIngredients = ({ingredients}) => {
   const sauces = ingredients.filter(item => item.type === 'sauce');
   const ingred = ingredients.filter(item => item.type === 'main');
 
+  function switchIngredientsTab(tab) {
+    setCurrent(tab);
+    const ingredientName = document.getElementById(tab);
+    if (ingredientName) ingredientName.scrollIntoView({ behavior: "smooth" });
+  }
 
   return (
     <section className={cn(styles.section)}>
     <p className={cn('text text_type_main-large mt-10 mb-5')}>Соберите бургер</p>
-    <div className={cn(styles.selector)}>
-      <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+    <div className={cn(styles.selector, 'mb-10')}>
+      <Tab value="breads" active={current === 'breads'} onClick={switchIngredientsTab}>
         Булки
       </Tab>
-      <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+      <Tab value="sauces" active={current === 'sauces'} onClick={switchIngredientsTab}>
         Соусы
       </Tab>
-      <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+      <Tab value="ingred" active={current === 'ingred'} onClick={switchIngredientsTab}>
         Начинки
       </Tab>
     </div>
-    <IngredientCategory title='Булки' ingredients={breads} />
-    <IngredientCategory title='Соусы' ingredients={sauces} />
-    <IngredientCategory title='Начинки' ingredients={ingred} />
+    <section className={cn(styles.ingredients, 'custom-scroll')}>
+      <IngredientCategory title='Булки' id='breads' ingredients={breads} />
+      <IngredientCategory title='Соусы' id='sauces' ingredients={sauces} />
+      <IngredientCategory title='Начинки' id='ingred' ingredients={ingred} />
+    </section>
 
   </section>
   )

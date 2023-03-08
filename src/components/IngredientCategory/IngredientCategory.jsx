@@ -6,8 +6,8 @@ import cn from 'classnames';
 const IngredientCategory = ({title, id, ingredients}) => {
   return (
     <>
-      <h2 className={cn('text text_type_main-medium')}>{title}</h2>
-      <div className={cn(styles.category, 'mb-30')}>
+      <h2 className={cn('text text_type_main-medium')} id={id}>{title}</h2>
+      <div className={cn(styles.category, 'mb-10 mt-6')}>
         {ingredients?.map(data => <BurgerIngredient key={data._id} {...data} count={100500} />)}
       </div>
     </>
