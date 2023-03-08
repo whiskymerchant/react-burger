@@ -1,0 +1,64 @@
+.header {
+  max-width: 1920px;
+  height: 88px;
+  display: flex;
+  align-items: space-between;
+  justify-content: center;
+  height: 88px;
+  left: 2%;
+  right: 2%;
+  top: 40px;
+  background: #1C1C21;
+  border: 2px solid #4C4CFF;
+}
+
+.constructor {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  width: 178px;
+  height: 56px;
+  margin-right: 8px;
+  margin-left: 320px;
+  border: 1px dashed #4C4CFF;
+  border-radius: 40px;
+  order: 0;
+}
+
+.feed {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  margin-right: 112px;
+  width: 197px;
+  height: 56px;
+  border: 1px dashed #4C4CFF;
+  border-radius: 40px;
+  order: 1;
+}
+
+.logo {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  margin-right: 288.85px;
+  width: 289.15px;
+  height: 40px;
+  order: 2;
+}
+
+.account {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  margin-right: 320px;
+  width: 207px;
+  height: 56px;
+  border: 1px dashed #4C4CFF;
+  border-radius: 40px;
+  order: 3;
+}
