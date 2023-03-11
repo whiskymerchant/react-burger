@@ -4,6 +4,26 @@
 
 .no_buns_ingredients {
   overflow-y: scroll;
-  height: 755px;
+  height: 650px;
 
+}
+
+.counter_final {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 70px;
+  margin-top: 40px;
+}
+
+.currency_icon {
+  margin-right: 10px;
+}
+
+.sum_and_icon_block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px;
 }

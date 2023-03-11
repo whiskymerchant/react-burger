@@ -3,14 +3,16 @@ import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import cn from 'classnames';
 import IngredientCategory from '../IngredientCategory/IngredientCategory';
+import Modal from '../Modal/Modal';
 
 const BurgerIngredients = ({ingredients}) => {
+
   const [current, setCurrent] = React.useState('one');
 
   const breads = ingredients.filter(item => item.type === 'bun');
   const sauces = ingredients.filter(item => item.type === 'sauce');
   const ingred = ingredients.filter(item => item.type === 'main');
-
+  
   function switchIngredientsTab(tab) {
     setCurrent(tab);
     const ingredientName = document.getElementById(tab);
@@ -36,7 +38,6 @@ const BurgerIngredients = ({ingredients}) => {
       <IngredientCategory title='Соусы' id='sauces' ingredients={sauces} />
       <IngredientCategory title='Начинки' id='ingred' ingredients={ingred} />
     </section>
-
   </section>
   )
 }

@@ -1,0 +1,25 @@
+.modal {
+  box-sizing: border-box;
+  width: 720px;
+  height: 539px;
+  position: absolute;
+  left: 37%;
+  top: 30%;
+  background: #1C1C21;
+  border: 1px solid rgba(76, 76, 255, 0.2);
+  border-radius: 40px;
+  z-index: 3;
+}
+
+.close {
+  color: red;
+
+}
+
+.header_block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  
+}

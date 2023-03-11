@@ -1,5 +1,5 @@
 import styles from './BurgerConstructor.module.css';
-import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
+import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import cn from 'classnames';
 
 
@@ -16,10 +16,11 @@ const BurgerConstructor = ({constructorIngredients}) => {
         type='top'
         thumbnail={buns?.image}
         key={buns?._id}
+        text={buns?.name}
       />
       
       <div className={cn(styles.no_buns_ingredients, 'custom-scroll')}>
-        {nobuns.map(data => <ConstructorElement thumbnail={data.image} key={data._id} {...data}/>)}
+        {nobuns.map(data => <ConstructorElement thumbnail={data.image} key={data._id} text={data.name} {...data}/>)}
       </div>
       
       <ConstructorElement 
@@ -27,7 +28,19 @@ const BurgerConstructor = ({constructorIngredients}) => {
         type='bottom'
         thumbnail={bunsLast?.image}
         key={bunsLast?._id}
+        text={bunsLast?.name}
       />
+
+      <div className={cn(styles.counter_final, '')}>
+        <div className={cn(styles.sum_and_icon_block)}>
+          <p className="text text_type_digits-medium mr-2">000</p>
+          <CurrencyIcon type="primary"/>
+        </div>
+        <Button htmlType="button" type="primary" size="large">
+          Оформить заказ
+        </Button>
+      </div>
+
     </section>
     )
 }
