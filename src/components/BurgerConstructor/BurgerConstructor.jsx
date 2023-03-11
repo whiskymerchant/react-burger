@@ -1,6 +1,9 @@
+import React from 'react';
+
 import styles from './BurgerConstructor.module.css';
 import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import cn from 'classnames';
+import OrderDetails from '../OrderDetails/OrderDetails';
 
 
 const BurgerConstructor = ({constructorIngredients}) => {
@@ -8,6 +11,10 @@ const BurgerConstructor = ({constructorIngredients}) => {
   const buns = constructorIngredients.find(data => data.type === 'bun')
   const bunsLast = constructorIngredients.findLast(data => data.type === 'bun')
   const nobuns = constructorIngredients.filter(data => data.type !== 'bun')
+
+  
+  const [orderWindow, setOrderWindow] = React.useState(false);
+  const closeModalWindow = () => {setOrderWindow(null)};
 
   return (
     <section className={cn(styles.section, 'mt-25')}>
@@ -36,9 +43,10 @@ const BurgerConstructor = ({constructorIngredients}) => {
           <p className="text text_type_digits-medium mr-2">000</p>
           <CurrencyIcon type="primary"/>
         </div>
-        <Button htmlType="button" type="primary" size="large">
+        <Button htmlType="button" type="primary" size="large" onClick={() => setOrderWindow(true)}>
           Оформить заказ
         </Button>
+        {orderWindow && <OrderDetails onClose={closeModalWindow} /> }
       </div>
 
     </section>

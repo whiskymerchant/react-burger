@@ -1,8 +1,8 @@
 .modal {
+  position: absolute;
   box-sizing: border-box;
   width: 720px;
   height: 539px;
-  position: absolute;
   left: 37%;
   top: 30%;
   background: #1C1C21;
@@ -11,10 +11,6 @@
   z-index: 3;
 }
 
-.close {
-  color: red;
-
-}
 
 .header_block {
   display: flex;
