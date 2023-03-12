@@ -4,14 +4,18 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import cn from 'classnames';
 import IngredientCategory from '../IngredientCategory/IngredientCategory';
 import Modal from '../Modal/Modal';
+import PropTypes from 'prop-types';
+import ingredientPropTypes from '../../utils/prop-types';
+
 
 const BurgerIngredients = ({ingredients}) => {
 
-  const [current, setCurrent] = React.useState('one');
+  const [current, setCurrent] = React.useState('bun');
 
-  const breads = ingredients.filter(item => item.type === 'bun');
-  const sauces = ingredients.filter(item => item.type === 'sauce');
-  const ingred = ingredients.filter(item => item.type === 'main');
+
+  const breads = React.useMemo(()=> ingredients.filter(item => item.type === 'bun'), [ingredients]);
+  const sauces = React.useMemo(()=> ingredients.filter(item => item.type === 'sauce'), [ingredients]);
+  const ingred = React.useMemo(()=> ingredients.filter(item => item.type === 'main'), [ingredients]);
   
   function switchIngredientsTab(tab) {
     setCurrent(tab);
@@ -40,6 +44,10 @@ const BurgerIngredients = ({ingredients}) => {
     </section>
   </section>
   )
+}
+
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 }
 
 export default BurgerIngredients;

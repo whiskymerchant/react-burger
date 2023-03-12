@@ -4,6 +4,8 @@ import { BurgerIngredient } from '@ya.praktikum/react-developer-burger-ui-compon
 import cn from 'classnames';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import PropTypes from 'prop-types';
+import ingredientPropTypes from '../../utils/prop-types';
 
 const IngredientCategory = ({title, id, ingredients}) => {
   
@@ -22,5 +24,11 @@ const IngredientCategory = ({title, id, ingredients}) => {
   </>
   )
 };
+
+IngredientCategory.propTypes = {
+  title: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
+}
 
 export default IngredientCategory;
