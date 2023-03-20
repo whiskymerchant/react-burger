@@ -1,11 +1,17 @@
 .section {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
   width: 600px;
 }
 
 .no_buns_ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   overflow-y: scroll;
-  height: 650px;
-
+  height: 620px;
+  gap: 10px;
 }
 
 .counter_final {
@@ -13,12 +19,12 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  margin-right: 70px;
+  margin-right: 50px;
   margin-top: 40px;
 }
 
 .currency_icon {
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .sum_and_icon_block {
@@ -27,3 +33,19 @@
   align-items: center;
   margin-right: 10px;
 }
+
+.constructor_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 8px;
+}
+
+.dragicon {
+  align-self: center;
+  justify-self: center;
+  margin-right: 14px;
+}
+
+

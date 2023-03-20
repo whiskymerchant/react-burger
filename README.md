@@ -7,10 +7,11 @@
 
 ## Где купить
 
-Чтобы заказать скорую доставку бургера, пройдите по [ссылке](https://reactjs.org/).
+Чтобы заказать скорую доставку бургера, пройдите по [ссылке](https://whiskymerchant.github.io/react-burger/).
 
 ### Какие технологии мы использовали:
 
 React Native,
 JS, JSX, HTML, CSS,
-GitHub, VS Code, NPM
+GitHub, VS Code, NPM,
+React-DnD, Redux

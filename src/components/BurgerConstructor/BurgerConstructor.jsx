@@ -1,41 +1,63 @@
 import React from 'react';
-
+import { useDispatch } from 'react-redux';
 import styles from './BurgerConstructor.module.css';
-import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import cn from 'classnames';
 import OrderDetails from '../OrderDetails/OrderDetails';
+import { useSelector } from 'react-redux/es/exports';
+import { useDrop } from 'react-dnd'
+import { addConstructor } from '../../services/reducers/constructor';
 
 
-const BurgerConstructor = ({constructorIngredients}) => {
 
-  const buns = constructorIngredients.find(data => data.type === 'bun')
-  const bunsLast = constructorIngredients.findLast(data => data.type === 'bun')
-  const nobuns = constructorIngredients.filter(data => data.type !== 'bun')
+const BurgerConstructor = () => {
 
-  
+  const {bun, ingredients} = useSelector(state => state.constructorStore);
+  const dispatch = useDispatch();
+ 
   const [orderWindow, setOrderWindow] = React.useState(false);
   const closeModalWindow = () => {setOrderWindow(null)};
 
+  const [collected, dropTarget] = useDrop({
+    accept: 'ingredient',
+    drop(ingredient, monitor) {
+        console.log('drop =>', ingredient);
+        dispatch(addConstructor(ingredient));
+    },
+    collect: monitor => ({
+        isHover: monitor.isOver()
+    })
+})
+
   return (
-    <section className={cn(styles.section, 'mt-25')}>
-      <ConstructorElement  
-        {...buns}
+    <section className={cn(styles.section, 'mt-25')} ref={dropTarget}>
+      <ConstructorElement 
+        {...bun}
         type='top'
-        thumbnail={buns?.image}
-        key={buns?._id}
-        text={buns?.name}
+        thumbnail={bun?.image}
+        text={bun?.name}
       />
       
-      <div className={cn(styles.no_buns_ingredients, 'custom-scroll')}>
-        {nobuns.map(data => <ConstructorElement thumbnail={data.image} key={data._id} text={data.name} {...data}/>)}
+      <div className={cn(styles.no_buns_ingredients, 'custom-scroll mb-4 mt-4')}>
+        {ingredients.map(data => (
+        <div className={cn(styles.constructor_container)}>  
+          <DragIcon className={cn(styles.dragicon)} type="primary" />
+          <ConstructorElement 
+            thumbnail={data.image} 
+            key={data.id} 
+            text={data.name} 
+            {...data}
+            />
+        </div>
+        )
+        )}
       </div>
       
       <ConstructorElement 
-        {...bunsLast} 
+        {...bun} 
         type='bottom'
-        thumbnail={bunsLast?.image}
-        key={bunsLast?._id}
-        text={bunsLast?.name}
+        thumbnail={bun?.image}
+        text={bun?.name}
       />
 
       <div className={cn(styles.counter_final, '')}>
