@@ -3,8 +3,11 @@ import styles from "./OrderDetails.module.css";
 import cn from "classnames";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import { useSelector } from 'react-redux/es/exports';
+
 
 const OrderDetails = ({ onClose }) => {
+  const {order} = useSelector(state => state.constructorStore);
   return (
     <section className={cn(styles.modal)}>
       <ModalOverlay className={cn(styles.overlay)} onClick={onClose} />
@@ -18,7 +21,7 @@ const OrderDetails = ({ onClose }) => {
             "text text_type_digits-large mb-8 mt-30"
           )}
         >
-          000
+          {order?.order?.number ?? '888'}
         </p>
         <p className={cn("mb-15 text text_type_main-medium")}>
           идентификатор заказа

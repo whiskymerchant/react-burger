@@ -20,7 +20,7 @@ const IngredientCategory = ({ title, id, ingredients }) => {
   const currentIngredient = useSelector((state) => state.currentIngredient);
   const [{ isDrag }, dragRef, dragPreviewRef] = useDrag({
     type: "ingredient",
-    item: ingredients,   // need to get the target ingredient here
+    item: {currentIngredient},   // need to get the target ingredient here
     collect: (monitor) => ({
       isDrag: monitor.isDragging(),
     }),
@@ -32,7 +32,7 @@ const IngredientCategory = ({ title, id, ingredients }) => {
       <h2 className={cn("text text_type_main-medium")} id={id}>
         {title}
       </h2>
-      <div className={cn(styles.category, "mb-10 mt-6")} ref={dragRef}>
+      <div className={cn(styles.category, "mb-10 mt-6")}>
         {ingredients?.map((data) => (
           <BurgerIngredient
             key={data._id}
@@ -42,6 +42,7 @@ const IngredientCategory = ({ title, id, ingredients }) => {
               dispatch(addConstructor(data));
               dispatch(openModal(data));
             }}
+            ref={dragRef}
           />
         ))}
       </div>
