@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 const IngredientCategory = ({ title, id, ingredients }) => {
   const dispatch = useDispatch();
   const currentIngredient = useSelector((state) => state.currentIngredient);
-  const [{ isDrag }, dragRef, dragPreviewRef] = useDrag({
+  const [{ isDrag }, drag, dragPreviewRef] = useDrag({
     type: "ingredient",
     item: {currentIngredient},   // need to get the target ingredient here
     collect: (monitor) => ({
@@ -42,7 +42,7 @@ const IngredientCategory = ({ title, id, ingredients }) => {
               dispatch(addConstructor(data));
               dispatch(openModal(data));
             }}
-            ref={dragRef}
+            ref={drag}
           />
         ))}
       </div>

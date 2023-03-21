@@ -6,8 +6,9 @@ import cn from 'classnames';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import { useSelector } from 'react-redux/es/exports';
 import { useDrop } from 'react-dnd'
-import { addConstructor } from '../../services/reducers/constructor';
+import { addConstructor, removeConstructor } from '../../services/reducers/constructor';
 import { fetchOrderSlice } from '../../services/reducers/order';
+import { useMemo } from 'react';
 
 
 
@@ -31,12 +32,52 @@ const BurgerConstructor = () => {
 })
 
   const onSendOrder = () => {
-    const data = {
-      ingredients: ingredients.map( ingredient => ingredient['_id'])
-    };
-    dispatch(fetchOrderSlice(data));
+    const order = [];
+    const bunsOrder = bun._id
+    ingredients: order.push(bunsOrder);
+    ingredients.forEach((ingredient) => {
+      order.push(ingredient._id)
+  })
+    order.push(bunsOrder);
+    dispatch(fetchOrderSlice(order));
     setOrderWindow(true);
   }
+  
+  // const data = {
+  //   ingredients: ingredients.map(ingredient => ingredient['_id'])
+  // };
+
+
+  // const sendRequest = () => {
+  //   const requestBody = []
+  //   const bunsRequestFormat = bun._id
+  //   requestBody.push(bunsRequestFormat);
+  //   ingredients.forEach((ingredient) => {
+  //       requestBody.push(ingredient._id)
+  //   })
+  //   requestBody.push(bunsRequestFormat);
+  //   dispatch(sendOrder(requestBody))
+  // }
+
+
+
+  console.log(ingredients);
+
+  const removeElement = (_id) => {
+    dispatch(removeConstructor(_id))
+}
+
+  const orderSum = useMemo(()=> {
+    let summ = 0;
+    if (bun === null || undefined) {
+      summ = 0
+    }
+    else {
+      summ += bun?.price * 2
+    }
+      ingredients?.map(ingredient => {summ += ingredient.price})
+    return summ;
+  })
 
   return (
     <section className={cn(styles.section, 'mt-25')} ref={dropTarget}>
@@ -55,6 +96,7 @@ const BurgerConstructor = () => {
             thumbnail={data.image} 
             key={data.id} 
             text={data.name} 
+            handleClose={removeElement}
             {...data}
             />
         </div>
@@ -71,7 +113,7 @@ const BurgerConstructor = () => {
 
       <div className={cn(styles.counter_final, '')}>
         <div className={cn(styles.sum_and_icon_block)}>
-          <p className="text text_type_digits-medium mr-2">000</p>
+          <p className="text text_type_digits-medium mr-2">{orderSum}</p>
           <CurrencyIcon type="primary"/>
         </div>
         <Button htmlType="button" type="primary" size="large" onClick={onSendOrder}>

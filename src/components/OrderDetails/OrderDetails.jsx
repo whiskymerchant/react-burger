@@ -21,7 +21,7 @@ const OrderDetails = ({ onClose }) => {
             "text text_type_digits-large mb-8 mt-30"
           )}
         >
-          {order?.order?.number ?? '888'}
+          {order?.order?.number ?? 'Буй'}
         </p>
         <p className={cn("mb-15 text text_type_main-medium")}>
           идентификатор заказа
