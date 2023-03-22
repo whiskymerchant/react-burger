@@ -34,7 +34,7 @@ const BurgerConstructor = () => {
   const onSendOrder = () => {
     const order = [];
     const bunsOrder = bun._id
-    ingredients: order.push(bunsOrder);
+    order.push(bunsOrder);
     ingredients.forEach((ingredient) => {
       order.push(ingredient._id)
   })
@@ -120,7 +120,6 @@ const BurgerConstructor = () => {
           Оформить заказ
         </Button>
 
-        <Counter count={1} size="default" extraClass="m-1" />
         {orderWindow && <OrderDetails onClose={closeModalWindow} /> }
       </div>
 

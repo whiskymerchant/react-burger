@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
@@ -24,6 +24,16 @@ export const constructorSlice = createSlice({
     },
   }
 })
+
+// const buns = (state) => state.burgerConstructor.bun
+// const items = (state) => state.burgerConstructor.ingredients
+
+// export const selectCountState = createSelector(
+//     [items, buns, (items, id) => id],
+//     (items, buns, id) => {
+//       return [buns, ...items]?.filter(ingredient => ingredient && ingredient._id === id).length;
+//     }
+// )
 
 
 export const { addConstructor, removeConstructor } = constructorSlice.actions; 
