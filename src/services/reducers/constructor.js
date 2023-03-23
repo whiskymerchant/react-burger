@@ -22,8 +22,13 @@ export const constructorSlice = createSlice({
     removeConstructor: (state, action) => {
       state.ingredients = state.ingredients.filter((ingredient) => ingredient.id != action.payload) 
     },
+    reorderConstructor: (state, action) => {
+      state.ingredients.splice(action.payload.to, 0, state.ingredients.splice(action.payload.from, 1)[0]);
+    }
   }
-})
+});
+
+// payload to reorderContstructor: dispatch(reorder({from: dragIndex, to: hoverIndex}));
 
 // const buns = (state) => state.burgerConstructor.bun
 // const items = (state) => state.burgerConstructor.ingredients
@@ -36,6 +41,6 @@ export const constructorSlice = createSlice({
 // )
 
 
-export const { addConstructor, removeConstructor } = constructorSlice.actions; 
+export const { addConstructor, removeConstructor, reorderConstructor } = constructorSlice.actions; 
 export default constructorSlice.reducer;
 

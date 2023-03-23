@@ -10,6 +10,7 @@ import { useSelector } from "react-redux/es/exports";
 
 const BurgerIngredients = () => {
   const ingredients = useSelector((state) => state.ingredientsStore.data);
+  console.log('ingredients', ingredients);
   const [current, setCurrent] = React.useState("bun");
   const breads = React.useMemo(
     () => ingredients.filter((item) => item.type === "bun"),

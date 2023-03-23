@@ -18,12 +18,16 @@ export const getIngredients = () => {
 export const sendOrder = (data) => {
   return fetch(`${BURGER_INGREDIENTS_API}/orders`, {
     method: 'POST',
-    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+    body: JSON.stringify({"ingredients": data}),
   })
     .then(listenRequest)
     .then(data => {
       if (data.success) {
-        return data.data;
+        return data;
+        // console.log(data);
       }
     })
 }
