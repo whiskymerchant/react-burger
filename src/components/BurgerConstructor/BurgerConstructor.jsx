@@ -14,7 +14,7 @@ import { useSelector } from "react-redux/es/exports";
 import { useDrop, useDrag } from "react-dnd";
 import {
   addConstructor,
-  removeConstructor,
+  removeConstructor
 } from "../../services/reducers/constructor";
 import { fetchOrderSlice } from "../../services/reducers/order";
 import { useMemo } from "react";
@@ -44,25 +44,9 @@ const BurgerConstructor = (data) => {
     }),
   });
 
-  const [{ isDrag }, dragRef] = useDrag({
-    type: "sorted",
-    item: data,
-    collect: (monitor) => ({
-      isDrag: monitor.isDragging(),
-    }),
-  });
+  
 
-  const [{ isHovering }, dropTargetIngred] = useDrop({
-    accept: "sorted",
-    drop(ingredient, monitor) {
-      console.log("drop =>", ingredient);
-      dispatch(addConstructor(ingredient));
-      dispatch(increaseCount(ingredient._id));
-    },
-    collect: (monitor) => ({
-      isHovering: monitor.isOver(),
-    }),
-  });
+  
 
   const onSendOrder = () => {
     const order = [];

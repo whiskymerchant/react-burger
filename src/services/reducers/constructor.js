@@ -28,7 +28,7 @@ export const constructorSlice = createSlice({
   }
 });
 
-// payload to reorderContstructor: dispatch(reorder({from: dragIndex, to: hoverIndex}));
+// payload to reorderContstructor: dispatch(reorderConstructor({from: dragIndex, to: hoverIndex}));
 
 // const buns = (state) => state.burgerConstructor.bun
 // const items = (state) => state.burgerConstructor.ingredients
