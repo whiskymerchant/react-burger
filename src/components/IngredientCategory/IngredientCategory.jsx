@@ -41,7 +41,7 @@ const IngredientCategory = ({ title, id, ingredients }) => {
             key={data._id}
             // count={counter[data._id]}
             onClick={() => {
-              dispatch(addConstructor(data));
+              // dispatch(addConstructor(data));
               dispatch(openModal(data));
             }}
           />

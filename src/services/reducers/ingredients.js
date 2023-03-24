@@ -23,33 +23,41 @@ export const ingredientSlice = createSlice({
   initialState,
   reducers: {
     increaseCount: (state, action) => {
-      console.log("state.data:", state.data);
-      return {
-        ...state,
-        data: state.data.map((item) => {
-          const { count, _id } = item;
-          if (_id !== action.payload) {
-            return item;
-          }
-          const isCountExist = typeof count === "number";
-          console.log("item type =>", item.type);
-          if (item.type === "sauce" || item.type === "main") {
-            return {
-              ...item,
-              count: isCountExist ? count + 1 : 1,
-            };
-          }
-          if (item.count) {
-            return {
-            ...item,
-              count: isCountExist? count + 0 : 1
-            };
-          }
+      console.log("state.data:", action);
+      let bunCount = 0;
+      const newData = state.data.map((item) => {
+        const { count, _id } = item;
+        if (_id !== action.payload) {
+          return item;
+        }
+        const isCountExist = typeof count === "number";
+        console.log("item type =>", item.type);
+        if (item.type === "sauce" || item.type === "main") {
           return {
             ...item,
-            count: isCountExist || count === 0 ? count + 1 : 1,
+            count: isCountExist ? count + 1 : 1,
           };
-        }),
+        }
+        if (item.type === "bun") {
+          bunCount += 1;
+        }
+        if (item.count) {
+          return {
+            ...item,
+            count: isCountExist ? count + 0 : 1,
+          };
+        }
+        return {
+          ...item,
+          count: isCountExist || count === 0 ? count + 1 : 1,
+        };
+      });
+      if (action.payload.type === "bun" && bunCount >= 1) {
+        return state;
+      }
+      return {
+        ...state,
+        data: newData,
       };
     },
     decreaseCount: (state, action) => {
@@ -89,6 +97,7 @@ export const ingredientSlice = createSlice({
       });
   },
 });
+
 
 export const { increaseCount, decreaseCount } = ingredientSlice.actions;
 
