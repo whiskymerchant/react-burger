@@ -24,6 +24,7 @@ import {
 } from "../../services/reducers/ingredients";
 import ConstructorElementWrap from "../ConstructorElementWrap/ConstructorElementWrap";
 
+
 const BurgerConstructor = () => {
   const { bun, ingredients } = useSelector((state) => state.constructorStore);
   const dispatch = useDispatch();
@@ -91,7 +92,7 @@ const BurgerConstructor = () => {
       <div className={cn(styles.no_buns_ingredients, "custom-scroll mb-4 mt-4")}>
         
         {ingredients.map((data, index) => (
-          <ConstructorElementWrap data={data} index={index} {...data}/>
+          <ConstructorElementWrap data={data} index={index} key={ data.id} {...data}/>
         ))}
       </div>
       <div className={cn(styles.section_buns)}>

@@ -4,6 +4,8 @@ import cn from "classnames";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+
 
 
 const OrderDetails = ({ onClose }) => {
@@ -37,6 +39,10 @@ const OrderDetails = ({ onClose }) => {
       </div>
     </section>
   );
+};
+
+OrderDetails.propTypes = {
+  onClose: PropTypes.func
 };
 
 export default OrderDetails;

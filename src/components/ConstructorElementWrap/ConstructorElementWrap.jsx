@@ -12,8 +12,10 @@ import cn from "classnames";
 import styles from "./ConstructorElementWrap.module.css";
 import { useDrag, useDrop } from "react-dnd";
 import { decreaseCount } from "../../services/reducers/ingredients";
+import PropTypes from 'prop-types';
 
-function ConstructorElementWrap(data, index) {
+
+function ConstructorElementWrap({data, index}) {
   const ref = useRef();
   const dispatch = useDispatch();
 
@@ -35,7 +37,6 @@ function ConstructorElementWrap(data, index) {
       };
     },
     hover(item, monitor) {
-      console.log(item);
       if (!ref.current) {
         return;
       }
@@ -78,5 +79,10 @@ function ConstructorElementWrap(data, index) {
     </div>
   );
 }
+
+ConstructorElementWrap.propTypes = {
+  data: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+};
 
 export default ConstructorElementWrap;

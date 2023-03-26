@@ -3,7 +3,7 @@ import styles from "./BurgerIngredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import IngredientCategory from "../IngredientCategory/IngredientCategory";
-
+import PropTypes from 'prop-types';
 import { useSelector } from "react-redux/es/exports";
 
 const BurgerIngredients = () => {
@@ -64,5 +64,9 @@ const BurgerIngredients = () => {
     </section>
   );
 };
+
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.array
+}
 
 export default BurgerIngredients;

@@ -1,13 +1,12 @@
 import { BurgerIngredient } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
+import PropTypes from 'prop-types';
+
 
 
 function BurgerIngredientWrap({
   data,
-  onClick,
-  ref,
-  index,
-  id
+  onClick
 }) {
   const [{ isDrag }, dragRef] = useDrag({
     type: "ingredient",
@@ -33,5 +32,10 @@ function BurgerIngredientWrap({
     </article>
   );
 }
+
+BurgerIngredientWrap.propTypes = {
+  data: PropTypes.object.isRequired,
+  onClick: PropTypes.func
+};
 
 export default BurgerIngredientWrap;

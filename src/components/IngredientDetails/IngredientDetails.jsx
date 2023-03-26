@@ -1,5 +1,7 @@
 import styles from './IngredientDetails.module.css';
 import cn from 'classnames';
+import PropTypes from 'prop-types';
+
 
 
 const IngredientDetails = ({data}) => {
@@ -31,6 +33,10 @@ const IngredientDetails = ({data}) => {
 
   </section>
   )
+}
+
+IngredientDetails.propTypes = {
+  data: PropTypes.object.isRequired
 }
 
 export default IngredientDetails;

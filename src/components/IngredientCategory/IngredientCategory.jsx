@@ -20,10 +20,6 @@ const IngredientCategory = ({ title, id, ingredients }) => {
   
   const counter = useSelector((state) => state.constructorStore)
 
-  // const finalCounter = counter.forEach((bun) => {
-
-  // })
-
   return (
     <>
       <h2 className={cn("text text_type_main-medium")} id={id}>
