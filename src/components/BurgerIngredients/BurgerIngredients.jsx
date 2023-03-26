@@ -3,14 +3,11 @@ import styles from "./BurgerIngredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import IngredientCategory from "../IngredientCategory/IngredientCategory";
-import Modal from "../Modal/Modal";
-import PropTypes from "prop-types";
-import ingredientPropTypes from "../../utils/prop-types";
+
 import { useSelector } from "react-redux/es/exports";
 
 const BurgerIngredients = () => {
   const ingredients = useSelector((state) => state.ingredientsStore.data);
-  console.log('ingredients', ingredients);
   const [current, setCurrent] = React.useState("bun");
   const breads = React.useMemo(
     () => ingredients.filter((item) => item.type === "bun"),

@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 
 const OrderDetails = ({ onClose }) => {
   const order = useSelector(state => state.orderBin);
-  console.log(order);
   return (
     <section className={cn(styles.modal)}>
       <ModalOverlay className={cn(styles.overlay)} onClick={onClose} />

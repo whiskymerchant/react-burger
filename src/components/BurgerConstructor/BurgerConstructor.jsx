@@ -22,8 +22,9 @@ import {
   decreaseCount,
   increaseCount,
 } from "../../services/reducers/ingredients";
+import ConstructorElementWrap from "../ConstructorElementWrap/ConstructorElementWrap";
 
-const BurgerConstructor = (data) => {
+const BurgerConstructor = () => {
   const { bun, ingredients } = useSelector((state) => state.constructorStore);
   const dispatch = useDispatch();
 
@@ -35,18 +36,14 @@ const BurgerConstructor = (data) => {
   const [{ isHover }, dropTarget] = useDrop({
     accept: "ingredient",
     drop(ingredient, monitor) {
-      console.log("drop =>", ingredient);
       dispatch(addConstructor(ingredient));
-      dispatch(increaseCount(ingredient._id));
+      dispatch(increaseCount(ingredient));
     },
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
   });
 
-  
-
-  
 
   const onSendOrder = () => {
     const order = [];
@@ -60,9 +57,7 @@ const BurgerConstructor = (data) => {
     setOrderWindow(true);
   };
 
-  const removeElement = (params) => {
-    dispatch(removeConstructor(params));
-  };
+
 
   const orderSum = useMemo(() => {
     let summ = 0;
@@ -77,44 +72,38 @@ const BurgerConstructor = (data) => {
     return summ;
   });
 
+  const divRef = React.useRef(null);
+
+ 
+
   return (
     <section className={cn(styles.section, "mt-25")} ref={dropTarget}>
+      <div className={cn(styles.section_buns)}>
       <ConstructorElement
         {...bun}
         type="top"
         thumbnail={bun?.image}
-        text={bun?.name}
+        text={bun?.name || "Пожалуйста перетащите булку сюда"}
         isLocked={true}
-      />
+      />     
+      </div>
 
-      <div
-        className={cn(styles.no_buns_ingredients, "custom-scroll mb-4 mt-4")}
-      >
-        {ingredients.map((data) => (
-          <div className={cn(styles.constructor_container)}>
-            <DragIcon className={cn(styles.dragicon)} type="primary" />
-            <ConstructorElement
-              thumbnail={data.image}
-              key={data.id}
-              text={data.name}
-              handleClose={() => {
-                removeElement(data.id);
-                dispatch(decreaseCount(data._id));
-                console.log("data._id", data._id);
-              }}
-              {...data}
-            />
-          </div>
+      <div className={cn(styles.no_buns_ingredients, "custom-scroll mb-4 mt-4")}>
+        
+        {ingredients.map((data, index) => (
+          <ConstructorElementWrap data={data} index={index} {...data}/>
         ))}
       </div>
+      <div className={cn(styles.section_buns)}>
 
       <ConstructorElement
         {...bun}
         type="bottom"
         thumbnail={bun?.image}
-        text={bun?.name}
+        text={bun?.name || "Пожалуйста перетащите булку сюда"}
         isLocked={true}
       />
+      </div>
 
       <div className={cn(styles.counter_final, "")}>
         <div className={cn(styles.sum_and_icon_block)}>

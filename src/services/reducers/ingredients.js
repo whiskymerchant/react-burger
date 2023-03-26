@@ -23,45 +23,65 @@ export const ingredientSlice = createSlice({
   initialState,
   reducers: {
     increaseCount: (state, action) => {
-      console.log("state.data:", action);
-      let bunCount = 0;
-      const newData = state.data.map((item) => {
-        const { count, _id } = item;
-        if (_id !== action.payload) {
-          return item;
+      const currentIngredientId = action.payload._id;
+      const currentIngredientType = action.payload.type;
+
+      state.data = state.data.map((ingredient) => {
+        let count;
+        if (ingredient.type === "bun" && currentIngredientType === "bun") {
+          ingredient.count = null; // changed to null instead of 0
         }
-        const isCountExist = typeof count === "number";
-        console.log("item type =>", item.type);
-        if (item.type === "sauce" || item.type === "main") {
-          return {
-            ...item,
-            count: isCountExist ? count + 1 : 1,
-          };
+        if (ingredient._id === currentIngredientId) {
+          if (ingredient.type === "bun") {
+            count = 2;
+          } else {
+            count = ingredient.count ? ++ingredient.count : 1;
+          }
         }
-        if (item.type === "bun") {
-          bunCount += 1;
-        }
-        if (item.count) {
-          return {
-            ...item,
-            count: isCountExist ? count + 0 : 1,
-          };
-        }
-        return {
-          ...item,
-          count: isCountExist || count === 0 ? count + 1 : 1,
-        };
+        return ingredient._id === currentIngredientId
+          ? {
+              ...ingredient,
+              count: count,
+            }
+          : ingredient;
       });
-      if (action.payload.type === "bun" && bunCount >= 1) {
-        return state;
-      }
-      return {
-        ...state,
-        data: newData,
-      };
+
+      // let bunCount = 0;
+      // const newData = state.data.map((item) => {
+      //   const { count, _id } = item;
+      //   if (_id !== action.payload) {
+      //     return item;
+      //   }
+      //   const isCountExist = typeof count === "number";
+      //   if (item.type === "sauce" || item.type === "main") {
+      //     return {
+      //       ...item,
+      //       count: isCountExist ? count + 1 : 1,
+      //     };
+      //   }
+      //   if (item.type === "bun") {
+      //     bunCount += 1;
+      //   }
+      //   if (item.count) {
+      //     return {
+      //       ...item,
+      //       count: isCountExist ? count + 0 : 1,
+      //     };
+      //   }
+      //   return {
+      //     ...item,
+      //     count: isCountExist || count === 0 ? count + 1 : 1,
+      //   };
+      // });
+      // if (action.payload.type === "bun" && bunCount >= 1) {
+      //   return state;
+      // }
+      // return {
+      //   ...state,
+      //   data: newData,
+      // };
     },
     decreaseCount: (state, action) => {
-      console.log("action:", action);
       return {
         ...state,
         data: state.data.map((item) => {
@@ -97,7 +117,6 @@ export const ingredientSlice = createSlice({
       });
   },
 });
-
 
 export const { increaseCount, decreaseCount } = ingredientSlice.actions;
 

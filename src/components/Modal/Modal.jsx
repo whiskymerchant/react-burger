@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './Modal.module.css';
 import { createPortal } from 'react-dom';
 import cn from 'classnames';
@@ -8,7 +9,21 @@ import PropTypes from 'prop-types';
 
 const modalWindow = document.querySelector('#modals')
 
-const Modal = ({title, onClose, children}) => {
+const Modal = ({title, onClose, children, onClick}) => {
+
+  React.useEffect(() => {
+    function closeOnEscape(evt) {
+      if (evt.key === 'Escape') {
+        onClick();
+      }
+    }
+
+    document.addEventListener('keydown', closeOnEscape);
+    return () => {
+      document.removeEventListener('keydown', closeOnEscape);
+    };
+  }, []);
+
   return createPortal (
     <>
       <section className={cn(styles.modal)}>

@@ -27,9 +27,8 @@ export const sendOrder = (data) => {
     .then(data => {
       if (data.success) {
         return data;
-        // console.log(data);
       }
-    })
+    });
 }
 
 

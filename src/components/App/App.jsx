@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import styles from './App.module.css';
-import { BURGER_INGREDIENTS_API, getIngredients } from '../../utils/api';
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";

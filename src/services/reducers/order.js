@@ -17,7 +17,6 @@ export const fetchOrderSlice = createAsyncThunk(
       }
       return response;
     } catch (e) {
-      console.log('error', e)
     }
   }
 )

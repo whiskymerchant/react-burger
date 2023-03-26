@@ -6,11 +6,7 @@ import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import PropTypes from "prop-types";
 import ingredientPropTypes from "../../utils/prop-types";
-import {
-  addConstructor,
-  selectCountState,
-} from "../../services/reducers/constructor";
-import { useDrag } from "react-dnd";
+
 import {
   closeModal,
   openModal,
@@ -23,7 +19,6 @@ const IngredientCategory = ({ title, id, ingredients }) => {
   const currentIngredient = useSelector((state) => state.currentIngredient);
   
   const counter = useSelector((state) => state.constructorStore)
-  console.log('ingredients:', ingredients);
 
   // const finalCounter = counter.forEach((bun) => {
 
