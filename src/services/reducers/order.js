@@ -10,14 +10,11 @@ const initialState = {
 export const fetchOrderSlice = createAsyncThunk(
   'order/fetchOrderSlice',
   async (data, thunkApi) => {
-    try {
       const response = await sendOrder(data)
       if (!response) {
         return thunkApi.rejectWithValue('Server error')
       }
       return response;
-    } catch (e) {
-    }
   }
 )
 

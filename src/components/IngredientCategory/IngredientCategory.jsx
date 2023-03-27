@@ -14,15 +14,15 @@ import {
 import { useSelector } from "react-redux";
 import BurgerIngredientWrap from "../BurgerIngredientWrap/BurgerIngredientWrap";
 
-const IngredientCategory = ({ title, id, ingredients }) => {
+const IngredientCategory = React.forwardRef(({ title, id, ingredients}, ref ) => {
   const dispatch = useDispatch();
   const currentIngredient = useSelector((state) => state.currentIngredient);
-  
-  const counter = useSelector((state) => state.constructorStore)
+
+  const counter = useSelector((state) => state.constructorStore);
 
   return (
     <>
-      <h2 className={cn("text text_type_main-medium")} id={id}>
+      <h2 className={cn("text text_type_main-medium")} id={id} ref={ref}>
         {title}
       </h2>
       <div className={cn(styles.category, "mb-10 mt-6")}>
@@ -30,9 +30,7 @@ const IngredientCategory = ({ title, id, ingredients }) => {
           <BurgerIngredientWrap
             data={data}
             key={data._id}
-            // count={counter[data._id]}
             onClick={() => {
-              // dispatch(addConstructor(data));
               dispatch(openModal(data));
             }}
           />
@@ -48,12 +46,12 @@ const IngredientCategory = ({ title, id, ingredients }) => {
       )}
     </>
   );
-};
+});
 
 IngredientCategory.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
+  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 };
 
 export default IngredientCategory;

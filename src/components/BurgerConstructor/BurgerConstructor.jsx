@@ -31,7 +31,7 @@ const BurgerConstructor = () => {
 
   const [orderWindow, setOrderWindow] = React.useState(false);
   const closeModalWindow = () => {
-    setOrderWindow(null);
+    setOrderWindow(false);
   };
 
   const [{ isHover }, dropTarget] = useDrop({
@@ -84,7 +84,7 @@ const BurgerConstructor = () => {
         {...bun}
         type="top"
         thumbnail={bun?.image}
-        text={bun?.name || "Пожалуйста перетащите булку сюда"}
+        text={`${bun?.name || "Пожалуйста перетащите булку сюда"} (верх)`}
         isLocked={true}
       />     
       </div>
@@ -101,7 +101,7 @@ const BurgerConstructor = () => {
         {...bun}
         type="bottom"
         thumbnail={bun?.image}
-        text={bun?.name || "Пожалуйста перетащите булку сюда"}
+        text={`${bun?.name || "Пожалуйста перетащите булку сюда"} (низ)`}
         isLocked={true}
       />
       </div>

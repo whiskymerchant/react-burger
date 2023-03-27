@@ -1,46 +1,36 @@
 .modal {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: fixed;
+  box-sizing: border-box;
   width: 720px;
   height: 718px;
-  box-sizing: border-box;
   left: 37%;
   top: 30%;
   background: #1C1C21;
   border: 1px solid rgba(76, 76, 255, 0.2);
   border-radius: 40px;
+  z-index: 3;
 }
 
 .done_image {
   background: url('../../images/done.png');
   width: 120px;
   height: 120px;
-
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .close {
   position: absolute;
   top: 30px;
-  right: -160px;
+  right: 30px;
   background: transparent;
 }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 1;
+.order_number {
+  text-align: center;
 }
 
-.popup {
-  position: relative;
-  z-index: 3;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
+.order_name {
+  text-align: center;
 }

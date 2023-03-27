@@ -5,8 +5,6 @@
   align-items: space-between;
   justify-content: center;
   height: 88px;
-  left: 2%;
-  right: 2%;
   top: 40px;
   background: #1C1C21;
 }
@@ -30,7 +28,7 @@
   align-self: center;
   align-items: center;
   justify-content: center;
-  margin-right: 112px;
+  margin-right: 72px;
   width: 197px;
   height: 56px;
   border: 1px dashed #4C4CFF;

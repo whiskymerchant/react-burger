@@ -81,8 +81,8 @@ function ConstructorElementWrap({data, index}) {
 }
 
 ConstructorElementWrap.propTypes = {
-  data: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
+  data: PropTypes.object,
+  index: PropTypes.number,
 };
 
 export default ConstructorElementWrap;
