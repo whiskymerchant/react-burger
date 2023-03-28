@@ -18,7 +18,6 @@ function BurgerIngredientWrap({
 
   const opacity = isDrag ? 0.4 : 1;
 
-  
 
   return (
     <article ref={dragRef}>

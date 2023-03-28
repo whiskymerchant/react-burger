@@ -9,35 +9,15 @@ import Modal from "../Modal/Modal";
 import { closeModal } from "../../services/reducers/currentIngredient";
 
 const OrderDetails = ({ onClose }) => {
-  React.useEffect(() => {
-    function closeOnEscape(evt) {
-      if (evt.key === "Escape") {
-        onClose();
-      }
-    }
-    function closeOnClick(evt) {
-      if(evt.target.id === 'overlay') {
-        onClose(); 
-      }
-    }
-
-    document.addEventListener('keydown', closeOnEscape);
-    document.addEventListener('click', closeOnClick);
-    return () => {
-      document.removeEventListener('click', closeOnClick);
-      document.removeEventListener('keydown', closeOnEscape);
-    }
-}, []) 
 
   const [orderWindow, setOrderWindow] = React.useState(false);
   const closeModalWindow = () => {
     setOrderWindow(false);
   };
-  console.log('onClose', onClose);
   const order = useSelector((state) => state.orderBin);
   return (
     <>
-      <Modal>
+      <Modal onClose={onClose}>
         <div className={cn(styles.modal)}>
           <button className={cn(styles.close)} onClick={onClose}>
             <CloseIcon />

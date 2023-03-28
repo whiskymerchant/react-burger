@@ -89,10 +89,6 @@ export const ingredientSlice = createSlice({
           if (_id !== action.payload) {
             return item;
           }
-          // const isCountExist = typeof count === 'number'
-          // if (!isCountExist) {
-          //   return item
-          // }
           return {
             ...item,
             count: count > 1 ? count - 1 : null,

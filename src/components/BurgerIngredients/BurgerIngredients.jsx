@@ -7,8 +7,7 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux/es/exports";
 import { useInView } from "react-intersection-observer";
 
-const BurgerIngredients = ((props, ref) => {
- 
+const BurgerIngredients = () => {
   const ingredients = useSelector((state) => state.ingredientsStore.data);
   const [current, setCurrent] = React.useState("bun");
   const breads = React.useMemo(
@@ -31,23 +30,22 @@ const BurgerIngredients = ((props, ref) => {
       ingredientName.scrollIntoView({ behavior: "smooth" });
     }
   }
-  const { refBuns, inViewBuns } = useInView();
-  const { refSauce, inViewSauce } = useInView();
-  const { refMains, inViewMains } = useInView();
-  
+  const { ref: refBuns, inView: inViewBuns } = useInView();
+  const { ref: refSauce, inView: inViewSauce } = useInView();
+  const { ref: refMains, inView: inViewMains } = useInView();
+
   React.useEffect(() => {
     if (inViewBuns) {
-      setCurrent('bun');
+      return setCurrent("bun");
     }
-    else if (inViewSauce) {
-      setCurrent('sauce');
+    if (inViewSauce) {
+      return setCurrent("sauce");
     }
-    else if (inViewMains) {
-      setCurrent('main');
-    }}, [refBuns, refSauce, refMains]);
-    
-  console.log("inViewMains", inViewMains);
-  
+    if (inViewMains) {
+      return setCurrent("main");
+    }
+  }, [inViewBuns, inViewSauce, inViewMains]);
+
   return (
     <section className={cn(styles.section)}>
       <p className={cn("text text_type_main-large mt-10 mb-5")}>
@@ -76,14 +74,28 @@ const BurgerIngredients = ((props, ref) => {
           Начинки
         </Tab>
       </div>
-      
-      <section className={cn(styles.ingredients, "custom-scroll")}>
-        <IngredientCategory title="Булки" id="bun" ingredients={breads} ref={refBuns}/>
-        <IngredientCategory title="Соусы" id="sauce" ingredients={sauces} ref={refSauce}/>
-        <IngredientCategory title="Начинки" id="main" ingredients={ingred} ref={refMains}/>
+
+      <section className={cn(styles.ingredients, "custom-scroll")} >
+        <IngredientCategory
+          title="Булки"
+          id="bun"
+          ingredients={breads}
+          ref={refBuns}
+        />
+        <IngredientCategory
+          title="Соусы"
+          id="sauce"
+          ingredients={sauces}
+          ref={refSauce}
+        />
+        <IngredientCategory
+          title="Начинки"
+          id="main"
+          ingredients={ingred}
+          ref={refMains}
+        />
       </section>
     </section>
   );
-}
-);
+};
 export default BurgerIngredients;
