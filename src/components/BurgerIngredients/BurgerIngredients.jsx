@@ -75,7 +75,7 @@ const BurgerIngredients = () => {
         </Tab>
       </div>
 
-      <section className={cn(styles.ingredients, "custom-scroll")} >
+      <section className={cn(styles.ingredients, "custom-scroll")}>
         <IngredientCategory
           title="Булки"
           id="bun"

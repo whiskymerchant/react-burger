@@ -9,7 +9,6 @@ import Modal from "../Modal/Modal";
 import { closeModal } from "../../services/reducers/currentIngredient";
 
 const OrderDetails = ({ onClose }) => {
-
   const [orderWindow, setOrderWindow] = React.useState(false);
   const closeModalWindow = () => {
     setOrderWindow(false);
@@ -61,6 +60,6 @@ const OrderDetails = ({ onClose }) => {
 
 OrderDetails.propTypes = {
   onClose: PropTypes.func,
-}
+};
 
 export default OrderDetails;

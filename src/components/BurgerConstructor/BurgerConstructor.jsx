@@ -14,7 +14,7 @@ import { useSelector } from "react-redux/es/exports";
 import { useDrop, useDrag } from "react-dnd";
 import {
   addConstructor,
-  removeConstructor
+  removeConstructor,
 } from "../../services/reducers/constructor";
 import { fetchOrderSlice } from "../../services/reducers/order";
 import { useMemo } from "react";
@@ -23,7 +23,6 @@ import {
   increaseCount,
 } from "../../services/reducers/ingredients";
 import ConstructorElementWrap from "../ConstructorElementWrap/ConstructorElementWrap";
-
 
 const BurgerConstructor = () => {
   const { bun, ingredients } = useSelector((state) => state.constructorStore);
@@ -45,7 +44,6 @@ const BurgerConstructor = () => {
     }),
   });
 
-
   const onSendOrder = () => {
     const order = [];
     const bunsOrder = bun._id;
@@ -57,8 +55,6 @@ const BurgerConstructor = () => {
     dispatch(fetchOrderSlice(order));
     setOrderWindow(true);
   };
-
-
 
   const orderSum = useMemo(() => {
     let summ = 0;
@@ -75,35 +71,38 @@ const BurgerConstructor = () => {
 
   const divRef = React.useRef(null);
 
- 
-
   return (
     <section className={cn(styles.section, "mt-25")} ref={dropTarget}>
       <div className={cn(styles.section_buns)}>
-      <ConstructorElement
-        {...bun}
-        type="top"
-        thumbnail={bun?.image}
-        text={`${bun?.name || "Пожалуйста перетащите булку сюда"} (верх)`}
-        isLocked={true}
-      />     
+        <ConstructorElement
+          {...bun}
+          type="top"
+          thumbnail={bun?.image}
+          text={`${bun?.name || "Пожалуйста перетащите булку сюда"} (верх)`}
+          isLocked={true}
+        />
       </div>
 
-      <div className={cn(styles.no_buns_ingredients, "custom-scroll mb-4 mt-4")}>
-        
+      <div
+        className={cn(styles.no_buns_ingredients, "custom-scroll mb-4 mt-4")}
+      >
         {ingredients.map((data, index) => (
-          <ConstructorElementWrap data={data} index={index} key={ data.id} {...data}/>
+          <ConstructorElementWrap
+            data={data}
+            index={index}
+            key={data.id}
+            {...data}
+          />
         ))}
       </div>
       <div className={cn(styles.section_buns)}>
-
-      <ConstructorElement
-        {...bun}
-        type="bottom"
-        thumbnail={bun?.image}
-        text={`${bun?.name || "Пожалуйста перетащите булку сюда"} (низ)`}
-        isLocked={true}
-      />
+        <ConstructorElement
+          {...bun}
+          type="bottom"
+          thumbnail={bun?.image}
+          text={`${bun?.name || "Пожалуйста перетащите булку сюда"} (низ)`}
+          isLocked={true}
+        />
       </div>
 
       <div className={cn(styles.counter_final, "")}>

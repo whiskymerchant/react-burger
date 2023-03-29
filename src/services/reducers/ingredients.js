@@ -46,40 +46,7 @@ export const ingredientSlice = createSlice({
           : ingredient;
       });
 
-      // let bunCount = 0;
-      // const newData = state.data.map((item) => {
-      //   const { count, _id } = item;
-      //   if (_id !== action.payload) {
-      //     return item;
-      //   }
-      //   const isCountExist = typeof count === "number";
-      //   if (item.type === "sauce" || item.type === "main") {
-      //     return {
-      //       ...item,
-      //       count: isCountExist ? count + 1 : 1,
-      //     };
-      //   }
-      //   if (item.type === "bun") {
-      //     bunCount += 1;
-      //   }
-      //   if (item.count) {
-      //     return {
-      //       ...item,
-      //       count: isCountExist ? count + 0 : 1,
-      //     };
-      //   }
-      //   return {
-      //     ...item,
-      //     count: isCountExist || count === 0 ? count + 1 : 1,
-      //   };
-      // });
-      // if (action.payload.type === "bun" && bunCount >= 1) {
-      //   return state;
-      // }
-      // return {
-      //   ...state,
-      //   data: newData,
-      // };
+   
     },
     decreaseCount: (state, action) => {
       return {

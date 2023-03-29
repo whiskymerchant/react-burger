@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 
 const modalWindow = document.querySelector("#modals");
 
-const Modal = ({ title, onClose, children  }) => {
+const Modal = ({ title, onClose, children }) => {
   React.useEffect(() => {
     function closeOnEscape(evt) {
       if (evt.key === "Escape") {
@@ -17,20 +17,18 @@ const Modal = ({ title, onClose, children  }) => {
     }
 
     function closeOnClick(evt) {
-      if(evt.target.id === 'overlay') {
-        onClose(); 
+      if (evt.target.id === "overlay") {
+        onClose();
       }
     }
 
-    document.addEventListener('keydown', closeOnEscape);
-    document.addEventListener('click', closeOnClick);
+    document.addEventListener("keydown", closeOnEscape);
+    document.addEventListener("click", closeOnClick);
     return () => {
-      document.removeEventListener('click', closeOnClick);
-      document.removeEventListener('keydown', closeOnEscape);
-    }
-}, []) 
-
-
+      document.removeEventListener("click", closeOnClick);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, []);
 
   return createPortal(
     <>
@@ -53,7 +51,7 @@ const Modal = ({ title, onClose, children  }) => {
 Modal.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
-  children: PropTypes.node.isRequired
-}
+  children: PropTypes.node.isRequired,
+};
 
 export default Modal;
