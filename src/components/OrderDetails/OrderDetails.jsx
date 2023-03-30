@@ -16,11 +16,12 @@ const OrderDetails = ({ onClose }) => {
   const order = useSelector((state) => state.orderBin);
   return (
     <>
-      <Modal onClose={onClose}>
+      {/* <Modal onClose={onClose}> */}
         <div className={cn(styles.modal)}>
           <button className={cn(styles.close)} onClick={onClose}>
             <CloseIcon />
           </button>
+
           <p
             className={cn(
               styles.order_number,
@@ -52,8 +53,8 @@ const OrderDetails = ({ onClose }) => {
             Дождитесь готовности на орбитальной станции
           </p>
         </div>
-      </Modal>
-      <ModalOverlay className={cn(styles.overlay)} onClick={closeModalWindow} />
+      {/* </Modal>
+      <ModalOverlay className={cn(styles.overlay)} onClick={closeModalWindow} /> */}
     </>
   );
 };

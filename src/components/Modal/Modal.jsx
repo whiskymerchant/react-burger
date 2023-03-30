@@ -33,14 +33,18 @@ const Modal = ({ title, onClose, children }) => {
   return createPortal(
     <>
       <section className={cn(styles.modal)}>
+        {/* <div className={cn(styles.container)}> */}
+        {/* <button className={cn(styles.close)}>
+            <CloseIcon onClick={onClose} />
+          </button> */}
         <div className={cn(styles.header_block, "ml-10 mt-10 mr-10")}>
           <h2 className={cn(styles.title, "text text_type_main-large ")}>
             {title}
           </h2>
-          <CloseIcon className={cn(styles.close)} onClick={onClose} />
         </div>
 
         {children}
+        {/* </div> */}
       </section>
       <ModalOverlay className={cn(styles.overlay)} onClick={onClose} />
     </>,

@@ -10,6 +10,10 @@ function BurgerIngredientWrap({ data, onClick }) {
       isDrag: monitor.isDragging(),
     }),
   });
+  let count = null;
+  if (data.count) {
+    count = data.count;
+  } else (count = undefined)
 
   const opacity = isDrag ? 0.4 : 1;
 
@@ -18,7 +22,7 @@ function BurgerIngredientWrap({ data, onClick }) {
       <BurgerIngredient
         key={data._id}
         {...data}
-        count={data.count}
+        count={count}
         style={{ opacity }}
         onClick={onClick}
       />

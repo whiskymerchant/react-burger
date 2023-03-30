@@ -1,10 +1,14 @@
 import styles from "./IngredientDetails.module.css";
 import cn from "classnames";
 import PropTypes from "prop-types";
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const IngredientDetails = ({ data }) => {
+const IngredientDetails = ({ data, onClose }) => {
   return (
     <section>
+      <button className={cn(styles.close)} onClick={onClose} >
+        <CloseIcon />
+      </button>
       <div className={cn(styles.image_container, "mr-25 ml-25")}>
         <img className={cn(styles.image)} src={data.image_large}></img>
       </div>

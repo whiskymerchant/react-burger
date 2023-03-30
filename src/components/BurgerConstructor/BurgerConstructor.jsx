@@ -23,6 +23,7 @@ import {
   increaseCount,
 } from "../../services/reducers/ingredients";
 import ConstructorElementWrap from "../ConstructorElementWrap/ConstructorElementWrap";
+import Modal from "../Modal/Modal";
 
 const BurgerConstructor = () => {
   const { bun, ingredients } = useSelector((state) => state.constructorStore);
@@ -119,7 +120,11 @@ const BurgerConstructor = () => {
           Оформить заказ
         </Button>
 
-        {orderWindow && <OrderDetails onClose={closeModalWindow} />}
+        {orderWindow && (
+          <Modal onClose={closeModalWindow}>
+            <OrderDetails />
+          </Modal>
+        )}
       </div>
     </section>
   );

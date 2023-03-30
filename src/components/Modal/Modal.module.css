@@ -13,9 +13,30 @@
 }
 
 .header_block {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   
+}
+.close {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background: none;
+  object-fit: cover;
+  object-position: center;
+  z-index: 5;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
