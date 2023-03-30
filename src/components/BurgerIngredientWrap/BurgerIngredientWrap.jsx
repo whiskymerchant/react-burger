@@ -13,7 +13,7 @@ function BurgerIngredientWrap({ data, onClick }) {
   let count = null;
   if (data.count) {
     count = data.count;
-  } else (count = undefined)
+  } else count = undefined;
 
   const opacity = isDrag ? 0.4 : 1;
 

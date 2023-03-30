@@ -2,18 +2,14 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import styles from "./IngredientCategory.module.css";
 import cn from "classnames";
-
 import PropTypes from "prop-types";
 import ingredientPropTypes from "../../utils/prop-types";
-
 import { openModal } from "../../services/reducers/currentIngredient";
 import { useSelector } from "react-redux";
 import BurgerIngredientWrap from "../BurgerIngredientWrap/BurgerIngredientWrap";
 
 const IngredientCategory = React.forwardRef(
   ({ title, id, ingredients, onClose }, ref) => {
-    // console.log({onClose});
-
     const dispatch = useDispatch();
     const currentIngredient = useSelector((state) => state.currentIngredient);
 

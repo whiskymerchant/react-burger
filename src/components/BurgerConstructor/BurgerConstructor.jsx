@@ -5,23 +5,15 @@ import {
   ConstructorElement,
   Button,
   CurrencyIcon,
-  DragIcon,
-  Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { useSelector } from "react-redux/es/exports";
-import { useDrop, useDrag } from "react-dnd";
-import {
-  addConstructor,
-  removeConstructor,
-} from "../../services/reducers/constructor";
+import { useDrop } from "react-dnd";
+import { addConstructor } from "../../services/reducers/constructor";
 import { fetchOrderSlice } from "../../services/reducers/order";
 import { useMemo } from "react";
-import {
-  decreaseCount,
-  increaseCount,
-} from "../../services/reducers/ingredients";
+import { increaseCount } from "../../services/reducers/ingredients";
 import ConstructorElementWrap from "../ConstructorElementWrap/ConstructorElementWrap";
 import Modal from "../Modal/Modal";
 
