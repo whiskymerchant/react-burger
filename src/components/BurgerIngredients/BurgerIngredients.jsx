@@ -3,9 +3,11 @@ import styles from "./BurgerIngredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import IngredientCategory from "../IngredientCategory/IngredientCategory";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux/es/exports";
+import { useDispatch, useSelector } from "react-redux/es/exports";
 import { useInView } from "react-intersection-observer";
+import { closeModal } from "../../services/reducers/currentIngredient";
+import Modal from "../Modal/Modal";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
 
 const BurgerIngredients = () => {
   const ingredients = useSelector((state) => state.ingredientsStore.data);
@@ -33,6 +35,9 @@ const BurgerIngredients = () => {
   const { ref: refBuns, inView: inViewBuns } = useInView();
   const { ref: refSauce, inView: inViewSauce } = useInView();
   const { ref: refMains, inView: inViewMains } = useInView();
+
+  const dispatch = useDispatch();
+  const currentIngredient = useSelector((state) => state.currentIngredient);
 
   React.useEffect(() => {
     if (inViewBuns) {
@@ -95,6 +100,14 @@ const BurgerIngredients = () => {
           ref={refMains}
         />
       </section>
+      {currentIngredient && (
+        <Modal
+          title="Детали ингредиента"
+          onClose={() => dispatch(closeModal())}
+        >
+          <IngredientDetails data={currentIngredient} />
+        </Modal>
+      )}
     </section>
   );
 };

@@ -16,4 +16,4 @@ export const ingredientSlice = createSlice({
 });
 
 export const {openModal, closeModal} = ingredientSlice.actions;
-export default ingredientSlice.reducer;
+export default ingredientSlice.reducer;   

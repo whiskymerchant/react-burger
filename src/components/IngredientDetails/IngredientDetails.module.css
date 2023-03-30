@@ -1,3 +1,17 @@
+.modal {
+  position: fixed;
+  box-sizing: border-box;
+  width: 720px;
+  height: 539px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1C1C21;
+  border: 1px solid rgba(76, 76, 255, 0.2);
+  border-radius: 40px;
+  z-index: 3;
+}
+
 .image_container {
   width: 520px;
   height: 240px;
@@ -8,7 +22,6 @@
 }
 
 .nutrition_block {
-  
 display: flex;
 flex-direction: row;
 text-align: center;
@@ -19,7 +32,6 @@ text-align: center;
   flex-direction: column;
   width: 520px;
   margin-right: 20px;
-  
 }
 
 .nutrition_element:last-child{

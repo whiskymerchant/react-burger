@@ -1,22 +1,17 @@
 import styles from "./IngredientDetails.module.css";
 import cn from "classnames";
 import PropTypes from "prop-types";
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const IngredientDetails = ({ data, onClose }) => {
-  console.log({onClose});
+const IngredientDetails = ({ data }) => {
   return (
-    <section>
-      {/* <button className={cn(styles.close)} onClick={onClose} >
-        <CloseIcon />
-      </button> */}
-      <div className={cn(styles.image_container, "mr-25 ml-25")}>
+    <section className={cn(styles.modal, 'pt-10 pb-15')}>
+      <div className={cn(styles.image_container, "mr-25 ml-25 mb-4")}>
         <img className={cn(styles.image)} src={data.image_large}></img>
       </div>
       <p
         className={cn(
           styles.description,
-          "text text_type_main-medium mt-4 mb-8"
+          "text text_type_main-medium mb-8"
         )}
       >
         {data.name}
@@ -90,7 +85,7 @@ const IngredientDetails = ({ data, onClose }) => {
             {data.carbohydrates}
           </p>
         </div>
-      </div>
+        </div>
     </section>
   );
 };

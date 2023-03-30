@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 
 const modalWindow = document.querySelector("#modals");
 
-const Modal = ({ title, onClose, children }) => {
+const Modal = ({ onClose, children }) => {
   React.useEffect(() => {
     function closeOnEscape(evt) {
       if (evt.key === "Escape") {
@@ -29,24 +29,15 @@ const Modal = ({ title, onClose, children }) => {
       document.removeEventListener("keydown", closeOnEscape);
     };
   }, []);
-
   return createPortal(
     <>
-      <section className={cn(styles.modal)}>
-        {/* <div className={cn(styles.container)}> */}
-        <button className={cn(styles.close)}>
+      <div className={styles.modal}>
+        <button className={styles.close}>
           <CloseIcon onClick={onClose} />
         </button>
-        <div className={cn(styles.header_block, "ml-10 mt-10 mr-10")}>
-          <h2 className={cn(styles.title, "text text_type_main-large ")}>
-            {title}
-          </h2>
-        </div>
-
         {children}
-        {/* </div> */}
-      </section>
-      <ModalOverlay className={cn(styles.overlay)} onClick={onClose} />
+      </div>
+      <ModalOverlay onClick={onClose} />
     </>,
     modalWindow
   );

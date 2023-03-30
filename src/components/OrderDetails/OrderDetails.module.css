@@ -1,15 +1,5 @@
 .modal {
-  position: fixed;
-  box-sizing: border-box;
-  width: 720px;
-  height: 718px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #1C1C21;
-  border: 1px solid rgba(76, 76, 255, 0.2);
-  border-radius: 40px;
-  z-index: 3;
+  
 }
 
 .done_image {
