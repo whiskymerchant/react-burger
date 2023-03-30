@@ -14,13 +14,15 @@ const OrderDetails = ({ onClose }) => {
     setOrderWindow(false);
   };
   const order = useSelector((state) => state.orderBin);
+  console.log({onClose});
   return (
+
     <>
       {/* <Modal onClose={onClose}> */}
         <div className={cn(styles.modal)}>
-          <button className={cn(styles.close)} onClick={onClose}>
+          {/* <button className={cn(styles.close)} onClick={onClose}>
             <CloseIcon />
-          </button>
+          </button> */}
 
           <p
             className={cn(

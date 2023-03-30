@@ -15,7 +15,9 @@ import { useSelector } from "react-redux";
 import BurgerIngredientWrap from "../BurgerIngredientWrap/BurgerIngredientWrap";
 
 const IngredientCategory = React.forwardRef(
-  ({ title, id, ingredients }, ref) => {
+  ({ title, id, ingredients, onClose }, ref) => {
+    console.log({onClose});
+
     const dispatch = useDispatch();
     const currentIngredient = useSelector((state) => state.currentIngredient);
 
@@ -42,7 +44,7 @@ const IngredientCategory = React.forwardRef(
             title="Детали ингредиента"
             onClose={() => dispatch(closeModal())}
           >
-            <IngredientDetails data={currentIngredient} />
+            <IngredientDetails data={currentIngredient} onClick={onClose}/>
           </Modal>
         )}
       </>
