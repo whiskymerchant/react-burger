@@ -12,11 +12,10 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 const App = () => {
   const dispatch = useDispatch();
 
-  // const [ingredients, setIngredients] = useState([]);
-
   useEffect(() => {
     dispatch(fetchIngredientsSlice());
   }, [dispatch]);
+
 
   return (
     <div className={styles.app}>
