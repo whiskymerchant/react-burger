@@ -1,34 +1,22 @@
-import React from 'react';
-import IngredientDetails from '../../components/IngredientDetails/IngredientDetails';
-import { Link, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React from "react";
+import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
+import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import cn from "classnames";
 import styles from "./FullPage.module.css";
-
-
 
 const FullPage = () => {
   const params = useParams();
   const ingredients = useSelector((state) => state.ingredientsStore.data);
-  console.log({ingredients});
-  const ingred = ingredients.find(ingred => ingred._id === params.id)
-  // const isLoading = useSelector((state) => state.ingredientsStore.isLoading);
-  // console.log({isLoading});
+  console.log({ params });
+  const ingred = ingredients.find((ingred) => ingred._id === params.id);
+
   return (
-    <section className={cn(styles.modal, 'pt-10 pb-15')}>
-    {/* { isLoading ? 
-      <> <div> loading </div> </>
-      :
-      <> */}
+    <section className={cn(styles.modal, "pt-10 pb-15")}>
       <div className={cn(styles.image_container, "mr-25 ml-25 mb-4")}>
         <img className={cn(styles.image)} src={ingred?.image_large}></img>
       </div>
-      <p
-        className={cn(
-          styles.description,
-          "text text_type_main-medium mb-8"
-        )}
-      >
+      <p className={cn(styles.description, "text text_type_main-medium mb-8")}>
         {ingred?.name}
       </p>
       <div className={cn(styles.nutrition_block)}>
@@ -100,11 +88,9 @@ const FullPage = () => {
             {ingred?.carbohydrates}
           </p>
         </div>
-        </div>
-        {/* </>
-      } */}
+      </div>
     </section>
   );
-}
+};
 
 export default FullPage;

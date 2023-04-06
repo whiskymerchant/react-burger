@@ -18,6 +18,7 @@ import {
   Switch,
   Route,
   Routes,
+  useLocation,
 } from "react-router-dom";
 import ResetPassword from "../../pages/ResetPassword/ResetPassword";
 import FullPage from "../../pages/FullPage/FullPage";
@@ -29,8 +30,12 @@ const App = () => {
     dispatch(fetchIngredientsSlice());
   }, [dispatch]);
 
+  const location = useLocation();
+  const background = location.state?.background;
+  console.log(background);
+
   return (
-    <Router>
+    <Router location ={background || location}>
       <div className={styles.app}>
         <AppHeader />
         <Routes>

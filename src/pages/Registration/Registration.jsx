@@ -2,6 +2,7 @@ import {
   EmailInput,
   Button,
   PasswordInput,
+  Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import cn from "classnames";
@@ -12,7 +13,7 @@ const Registration = ({ value }) => {
   return (
     <div className={cn(styles.container, "text text_type_main-default mb-6")}>
       <h2>Регистрация</h2>
-      <EmailInput
+      <Input
         extraClass="mb-6"
         value={value}
         name={"name"}

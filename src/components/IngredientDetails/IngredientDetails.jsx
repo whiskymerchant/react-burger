@@ -1,10 +1,13 @@
 import styles from "./IngredientDetails.module.css";
 import cn from "classnames";
 import PropTypes from "prop-types";
+import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
 
 const IngredientDetails = ({ data }) => {
+  // const location = useLocation();
   return (
-    <section className={cn(styles.modal, 'pt-10 pb-15')}>
+    <Link className={cn(styles.modal, 'pt-10 pb-15')} >
       <div className={cn(styles.image_container, "mr-25 ml-25 mb-4")}>
         <img className={cn(styles.image)} src={data.image_large}></img>
       </div>
@@ -86,7 +89,7 @@ const IngredientDetails = ({ data }) => {
           </p>
         </div>
         </div>
-    </section>
+    </Link>
   );
 };
 

@@ -5,6 +5,7 @@ import {
   ShowIcon,
   Button,
   PasswordInput,
+  Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import { Link } from "react-router-dom";
@@ -26,11 +27,11 @@ const ResetPassword = ({ value }) => {
         isIcon={false}
         extraClass="mb-6"
       />
-      <EmailInput
+      <Input
         extraClass="mb-6"
         name={"code"}
         placeholder="Введите код из письма"
-      ></EmailInput>
+      ></Input>
       <Button extraClass="mb-20" htmlType="button" type="primary" size="large">
         Сохранить
       </Button>
