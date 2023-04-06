@@ -5,8 +5,16 @@ import {
 import React from "react";
 import cn from "classnames";
 import styles from "./ForgotPassword.module.css";
+import { Link } from "react-router-dom";
+import { sendEmail } from "../../utils/api";
 
-const ForgotPassword = ({ value }) => {
+const ForgotPassword = () => {
+
+  const [value, setValue] = React.useState()
+  const onChange = e => {
+    setValue(e.target.value)
+  }
+
   return (
     <div className={cn(styles.container, "text text_type_main-default mb-6")}>
       <h2>Восстановление пароля</h2>
@@ -18,12 +26,14 @@ const ForgotPassword = ({ value }) => {
         isIcon={false}
       />
 
-      <Button extraClass="mb-20" htmlType="button" type="primary" size="large">
+      <Button extraClass="mb-20" htmlType="button" type="primary" size="large" onClick={()=>sendEmail(value)}>
         Восстановить
       </Button>
       <div className={cn(styles.bottom_div)}>
         <p className="text text_type_main-small">Вспомнили пароль?</p>
-        <a className="text text_type_main-small">Войти</a>
+        <Link to="/login">
+          <a className="text text_type_main-small">Войти</a>
+        </Link>
       </div>
     </div>
   );

@@ -4,8 +4,10 @@ import {
   EmailInput,
   ShowIcon,
   Button,
+  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
+import { Link } from "react-router-dom";
 
 const Login = ({ value }) => {
   // const [value, setValue] = React.useState("bob@example.com");
@@ -24,17 +26,25 @@ const Login = ({ value }) => {
         isIcon={false}
         extraClass="mb-6"
       />
-      <EmailInput extraClass="mb-6" name={"password"} placeholder="Пароль"></EmailInput>
+      <PasswordInput
+        extraClass="mb-6"
+        name={"password"}
+        placeholder="Пароль"
+      ></PasswordInput>
       <Button extraClass="mb-20" htmlType="button" type="primary" size="large">
         Войти
       </Button>
       <div className={cn(styles.bottom_div)}>
         <p className="text text_type_main-small">Вы — новый пользователь?</p>
-        <a className="text text_type_main-small">Зарегистрироваться</a>
+        <Link to="/register">
+          <a className="text text_type_main-small">Зарегистрироваться</a>
+        </Link>
       </div>
       <div className={cn(styles.bottom_div)}>
         <p className="text text_type_main-small">Забыли пароль?</p>
-        <a className="text text_type_main-small">Восстановить пароль</a>
+        <Link to="/forgot-password">
+          <a className="text text_type_main-small">Восстановить пароль</a>
+        </Link>
       </div>
     </div>
   );

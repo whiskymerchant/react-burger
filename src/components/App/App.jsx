@@ -19,6 +19,8 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+import ResetPassword from "../../pages/ResetPassword/ResetPassword";
+import FullPage from "../../pages/FullPage/FullPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,11 +34,13 @@ const App = () => {
       <div className={styles.app}>
         <AppHeader />
         <Routes>
-          <Route path="/" Component={MainPage} />
-          <Route path="/profile" Component={Profile} />
-          <Route path="/login" Component={Login} />
-          <Route path="/register" Component={Registration} />
-          <Route path="/forgot-password" Component={ForgotPassword} />
+          <Route index Component={MainPage} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registration />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/ingredients/:id" element={<FullPage />} />
         </Routes>
       </div>
     </Router>

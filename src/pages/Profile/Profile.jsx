@@ -1,5 +1,5 @@
 import React from "react";
-import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import styles from "./Profile.module.css";
 
@@ -44,13 +44,13 @@ const Profile = ({value}) => {
           name="login"
           value={value}
         ></EmailInput>
-        <EmailInput
+        <PasswordInput
           extraClass="mb-2"
           placeholder="Пароль"
           isIcon={false}
           name="password"
           value={value}
-        ></EmailInput>
+        ></PasswordInput>
       </div>
     </div>
   );
