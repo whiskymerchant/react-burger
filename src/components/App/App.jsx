@@ -22,6 +22,7 @@ import {
 } from "react-router-dom";
 import ResetPassword from "../../pages/ResetPassword/ResetPassword";
 import FullPage from "../../pages/FullPage/FullPage";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,23 +33,33 @@ const App = () => {
 
   const location = useLocation();
   const background = location.state?.background;
-  console.log(background);
+  console.log({location});
+  console.log({background});
+
 
   return (
-    <Router location ={background || location}>
-      <div className={styles.app}>
-        <AppHeader />
-        <Routes>
-          <Route index Component={MainPage} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Registration />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/ingredients/:id" element={<FullPage />} />
-        </Routes>
-      </div>
-    </Router>
+    // <Router location ={background || location}>
+    <div className={styles.app}>
+      <AppHeader />
+      <Routes state={background || location}>
+        <Route index Component={MainPage} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Registration />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+
+        <Route
+          path="/ingredients/:id"
+          element={
+            <ProtectedRoute>
+              <FullPage />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </div>
+    // </Router>
   );
 };
 
