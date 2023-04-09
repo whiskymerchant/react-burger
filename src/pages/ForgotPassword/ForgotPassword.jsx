@@ -26,7 +26,7 @@ const ForgotPassword = () => {
         isIcon={false}
       />
 
-      <Button extraClass="mb-20" htmlType="button" type="primary" size="large" onClick={()=>passwordReset(value)}>
+      <Button extraClass="mb-20" htmlType="submit" type="primary" size="large" onClick={()=>passwordReset(value)}>
         Восстановить
       </Button>
       <div className={cn(styles.bottom_div)}>

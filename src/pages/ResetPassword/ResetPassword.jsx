@@ -9,6 +9,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import { Link } from "react-router-dom";
+import { sendCode } from "../../utils/api";
+
 
 const ResetPassword = ({ value }) => {
   // const [value, setValue] = React.useState("bob@example.com");
@@ -32,7 +34,7 @@ const ResetPassword = ({ value }) => {
         name={"code"}
         placeholder="Введите код из письма"
       ></Input>
-      <Button extraClass="mb-20" htmlType="button" type="primary" size="large">
+      <Button extraClass="mb-20" htmlType="button" type="primary" size="large" onClick={()=>sendCode(value)}>
         Сохранить
       </Button>
       <div className={cn(styles.bottom_div)}>

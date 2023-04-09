@@ -144,3 +144,33 @@ export const logoutUser = () => {
       return Promise.reject(data);
     });
 };
+
+export const sendCode = (data) => {
+  return fetch(`${BURGER_INGREDIENTS_API}/password-reset/reset`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(data),
+  }).then(this.checkReponse)
+      .then(data => {
+          if (data?.success) return data;
+          return Promise.reject(data)
+      });
+};
+
+export const userInfoUpdate = (data) => {
+  return fetch(`${BURGER_INGREDIENTS_API}/auth/user`, {
+      method: "PATCH",
+      headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          'authorization': getCookie('accessToken')
+      },
+      body: JSON.stringify(data),
+  }).then(this.checkReponse)
+      .then(data => {
+          if (data?.success) return data;
+          return Promise.reject(data)
+      });
+};
+
