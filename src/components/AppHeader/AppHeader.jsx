@@ -12,10 +12,12 @@ const AppHeader = () => {
   return (
     <header className={cn(styles.header, "p-4")}>
       <nav className={cn(styles.constructor)}>
-        <BurgerIcon type="primary" />
-        <span className={cn("text text_type_main-default ml-2")}>
-          Конструктор
-        </span>
+        <Link to="/">
+          <BurgerIcon type="primary" />
+          <span className={cn("text text_type_main-default ml-2")}>
+            Конструктор
+          </span>
+        </Link>
       </nav>
       <nav className={styles.feed}>
         <ListIcon type="secondary" />

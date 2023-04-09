@@ -1,9 +1,27 @@
 import React from "react";
-import { Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Input,
+  PasswordInput,
+  Button
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import styles from "./Profile.module.css";
+import { getUser } from "../../utils/api";
 
-const Profile = ({value}) => {
+const Profile = ({ value, onLogout }) => {
+
+    const [name, setName] = React.useState("");
+    const [email, setEmail] = React.useState("");
+
+    React.useEffect(()=> {
+      getUser()
+      .then((responce)=>{
+        const {user} = responce
+        setName(user.name)
+        setEmail(user.email)
+      })
+    }, [])
+
   return (
     <div className={cn(styles.main_container)}>
       <div className={cn(styles.left_container, "mr-15")}>
@@ -35,22 +53,40 @@ const Profile = ({value}) => {
           name={"name"}
           placeholder="Имя"
           isIcon={false}
-          value={value}
+          value={name}
+          onChange={(event)=>setName(event.target.value)}
         />
         <Input
           extraClass="mb-2"
           placeholder="Логин"
           isIcon={false}
           name="login"
-          value={value}
+          value={email}
+          onChange={(event)=>setEmail(event.target.value)}
         ></Input>
         <PasswordInput
           extraClass="mb-2"
           placeholder="Пароль"
           isIcon={false}
           name="password"
-          value={value}
         ></PasswordInput>
+        <Button
+          extraClass="mt-15"
+          htmlType="submit"
+          type="primary"
+          size="large"
+        >
+          Сохранить
+        </Button>
+        <Button
+          onClick={onLogout}
+          extraClass="mt-15"
+          htmlType="button"
+          type="primary"
+          size="large"
+        >
+          Выйти
+        </Button>
       </div>
     </div>
   );

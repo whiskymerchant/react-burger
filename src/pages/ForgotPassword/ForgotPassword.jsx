@@ -6,7 +6,7 @@ import React from "react";
 import cn from "classnames";
 import styles from "./ForgotPassword.module.css";
 import { Link } from "react-router-dom";
-import { sendEmail } from "../../utils/api";
+import { passwordReset } from "../../utils/api";
 
 const ForgotPassword = () => {
 
@@ -26,7 +26,7 @@ const ForgotPassword = () => {
         isIcon={false}
       />
 
-      <Button extraClass="mb-20" htmlType="button" type="primary" size="large" onClick={()=>sendEmail(value)}>
+      <Button extraClass="mb-20" htmlType="button" type="primary" size="large" onClick={()=>passwordReset(value)}>
         Восстановить
       </Button>
       <div className={cn(styles.bottom_div)}>

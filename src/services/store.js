@@ -3,6 +3,8 @@ import ingredients from './reducers/ingredients';
 import constructor from './reducers/constructor';
 import ingredient from './reducers/currentIngredient';
 import order from './reducers/order';
+import user from './reducers/user';
+
 
 const store = configureStore({
   reducer: {
@@ -10,6 +12,7 @@ const store = configureStore({
     constructorStore: constructor,
     currentIngredient: ingredient,
     orderBin: order,
+    loadUser: user
   },
 })
 

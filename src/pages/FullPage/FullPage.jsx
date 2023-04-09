@@ -6,18 +6,22 @@ import cn from "classnames";
 import styles from "./FullPage.module.css";
 
 const FullPage = () => {
-  const params = useParams();
-  const ingredients = useSelector((state) => state.ingredientsStore.data);
-  console.log({ params });
-  const ingred = ingredients.find((ingred) => ingred._id === params.id);
-
+  const {idIngredient} = useParams();
+  const ingredients = useSelector(state => state.ingredientsStore.data)
+  const currentIngredient = ingredients.find(item => item._id === idIngredient)
+  console.log({currentIngredient});
   return (
-    <section className={cn(styles.modal, "pt-10 pb-15")}>
+    <div className={cn(styles.modal, 'pt-10 pb-15')} >
       <div className={cn(styles.image_container, "mr-25 ml-25 mb-4")}>
-        <img className={cn(styles.image)} src={ingred?.image_large}></img>
+        <img className={cn(styles.image)} src={currentIngredient?.image_large}></img>
       </div>
-      <p className={cn(styles.description, "text text_type_main-medium mb-8")}>
-        {ingred?.name}
+      <p
+        className={cn(
+          styles.description,
+          "text text_type_main-medium mb-8"
+        )}
+      >
+        {currentIngredient?.name}
       </p>
       <div className={cn(styles.nutrition_block)}>
         <div className={cn(styles.nutrition_element)}>
@@ -34,7 +38,7 @@ const FullPage = () => {
               "text text_type_digits-medium text_color_inactive"
             )}
           >
-            {ingred?.calories}
+            {currentIngredient?.calories}
           </p>
         </div>
         <div className={cn(styles.nutrition_element)}>
@@ -51,7 +55,7 @@ const FullPage = () => {
               "text text_type_digits-medium text_color_inactive"
             )}
           >
-            {ingred?.proteins}
+            {currentIngredient?.proteins}
           </p>
         </div>
         <div className={cn(styles.nutrition_element)}>
@@ -68,7 +72,7 @@ const FullPage = () => {
               "text text_type_digits-medium text_color_inactive"
             )}
           >
-            {ingred?.fat}
+            {currentIngredient?.fat}
           </p>
         </div>
         <div className={cn(styles.nutrition_element)}>
@@ -85,11 +89,11 @@ const FullPage = () => {
               "text text_type_digits-medium text_color_inactive"
             )}
           >
-            {ingred?.carbohydrates}
+            {currentIngredient?.carbohydrates}
           </p>
         </div>
-      </div>
-    </section>
+        </div>
+    </div>
   );
 };
 

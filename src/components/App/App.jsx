@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import MainPage from "../MainPage/MainPage";
@@ -19,47 +19,117 @@ import {
   Route,
   Routes,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import ResetPassword from "../../pages/ResetPassword/ResetPassword";
 import FullPage from "../../pages/FullPage/FullPage";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import Modal from "../Modal/Modal";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import {
+  loginUser,
+  registerUser,
+  logoutUser,
+} from "../../services/reducers/user";
+import NotFound from "../../pages/NotFound/NotFound";
+import { getCookie } from "../../utils/cookie";
 
 const App = () => {
   const dispatch = useDispatch();
+  const [user, setUser] = useState(getCookie("accessToken"));
 
   useEffect(() => {
     dispatch(fetchIngredientsSlice());
   }, [dispatch]);
 
   const location = useLocation();
+  const navigate = useNavigate();
   const background = location.state?.background;
-  console.log({location});
-  console.log({background});
+  console.log({ location });
+  console.log({ background });
+  const handleCloseModal = () => {
+    navigate(background.pathname || "/", { replace: true });
+  };
 
+  const cbLogin = (dataUser) => {
+    dispatch(
+      loginUser({
+        dataUser,
+        onSuccess: (token) => {
+          setUser(token);
+          navigate("/", { replace: true });
+        },
+        onError: (errorMessage) => {
+          alert(errorMessage);
+        },
+      })
+    );
+  };
+
+  const onLogout = () => {
+    dispatch(
+      logoutUser({
+        onSuccess: () => setUser(null),
+        onError: (errorMessage) => alert(errorMessage),
+      })
+    );
+  };
+
+  const cbRegister = (dataUser) => {
+    dispatch(
+      registerUser({
+        dataUser,
+        onSuccess: (token) => {
+          setUser(token);
+          navigate("/", { replace: true });
+        },
+        onError: (errorMessage) => {
+          alert(errorMessage);
+        },
+      })
+    );
+  };
 
   return (
-    // <Router location ={background || location}>
     <div className={styles.app}>
       <AppHeader />
-      <Routes state={background || location}>
+      <Routes location={background || location}>
         <Route index Component={MainPage} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Registration />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-
         <Route
-          path="/ingredients/:id"
+          path="/profile"
           element={
-            <ProtectedRoute>
-              <FullPage />
+            <ProtectedRoute user={user}>
+              <Profile onLogout={onLogout} />
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/login"
+          element={<Login onLogin={cbLogin} user={user} />}
+        />
+        <Route
+          path="/register"
+          element={<Registration onRegister={cbRegister} user={user} />}
+        />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="*" element={<NotFound />} />
+
+        <Route path="/ingredient/:idIngredient" element={<FullPage />} />
       </Routes>
+      {background && (
+        <Routes>
+          <Route
+            path="/ingredient/:idIngredient"
+            element={
+              <Modal onClose={handleCloseModal}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
     </div>
-    // </Router>
   );
 };
 

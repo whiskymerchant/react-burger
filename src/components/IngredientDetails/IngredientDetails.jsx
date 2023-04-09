@@ -1,15 +1,19 @@
 import styles from "./IngredientDetails.module.css";
 import cn from "classnames";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-const IngredientDetails = ({ data }) => {
-  // const location = useLocation();
+const IngredientDetails = () => {
+  const {idIngredient} = useParams();
+  const ingredients = useSelector(state => state.ingredientsStore.data)
+  const currentIngredient = ingredients.find(item => item._id === idIngredient)
+  console.log({currentIngredient});
   return (
-    <Link className={cn(styles.modal, 'pt-10 pb-15')} >
+    <div className={cn(styles.modal, 'pt-10 pb-15')} >
       <div className={cn(styles.image_container, "mr-25 ml-25 mb-4")}>
-        <img className={cn(styles.image)} src={data.image_large}></img>
+        <img className={cn(styles.image)} src={currentIngredient?.image_large}></img>
       </div>
       <p
         className={cn(
@@ -17,7 +21,7 @@ const IngredientDetails = ({ data }) => {
           "text text_type_main-medium mb-8"
         )}
       >
-        {data.name}
+        {currentIngredient?.name}
       </p>
       <div className={cn(styles.nutrition_block)}>
         <div className={cn(styles.nutrition_element)}>
@@ -34,7 +38,7 @@ const IngredientDetails = ({ data }) => {
               "text text_type_digits-medium text_color_inactive"
             )}
           >
-            {data.calories}
+            {currentIngredient?.calories}
           </p>
         </div>
         <div className={cn(styles.nutrition_element)}>
@@ -51,7 +55,7 @@ const IngredientDetails = ({ data }) => {
               "text text_type_digits-medium text_color_inactive"
             )}
           >
-            {data.proteins}
+            {currentIngredient?.proteins}
           </p>
         </div>
         <div className={cn(styles.nutrition_element)}>
@@ -68,7 +72,7 @@ const IngredientDetails = ({ data }) => {
               "text text_type_digits-medium text_color_inactive"
             )}
           >
-            {data.fat}
+            {currentIngredient?.fat}
           </p>
         </div>
         <div className={cn(styles.nutrition_element)}>
@@ -85,16 +89,14 @@ const IngredientDetails = ({ data }) => {
               "text text_type_digits-medium text_color_inactive"
             )}
           >
-            {data.carbohydrates}
+            {currentIngredient?.carbohydrates}
           </p>
         </div>
         </div>
-    </Link>
+    </div>
   );
 };
 
-IngredientDetails.propTypes = {
-  data: PropTypes.object.isRequired,
-};
+
 
 export default IngredientDetails;
