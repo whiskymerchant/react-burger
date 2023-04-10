@@ -100,14 +100,14 @@ const BurgerIngredients = () => {
           ref={refMains}
         />
       </section>
-      {currentIngredient && (
+      {/* {currentIngredient && (
         <Modal
           title="Детали ингредиента"
           onClose={() => dispatch(closeModal())}
         >
           <IngredientDetails data={currentIngredient} />
         </Modal>
-      )}
+      )} */}
     </section>
   );
 };

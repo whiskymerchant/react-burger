@@ -1,8 +1,10 @@
 import { BurgerIngredient } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
 import PropTypes from "prop-types";
+import { Link, useLocation } from "react-router-dom";
 
 function BurgerIngredientWrap({ data, onClick }) {
+  const location = useLocation();
   const [{ isDrag }, dragRef] = useDrag({
     type: "ingredient",
     item: data,
@@ -18,7 +20,7 @@ function BurgerIngredientWrap({ data, onClick }) {
   const opacity = isDrag ? 0.4 : 1;
 
   return (
-    <article ref={dragRef}>
+    <Link to={`/ingredient/${data._id}`} state={{background: location}}ref={dragRef}>
       <BurgerIngredient
         key={data._id}
         {...data}
@@ -26,7 +28,7 @@ function BurgerIngredientWrap({ data, onClick }) {
         style={{ opacity }}
         onClick={onClick}
       />
-    </article>
+    </Link>
   );
 }
 
