@@ -7,11 +7,16 @@ import {
 import cn from "classnames";
 import styles from "./Profile.module.css";
 import { getUser } from "../../utils/api";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../services/reducers/user";
 
 const Profile = ({ value, onLogout }) => {
 
     const [name, setName] = React.useState("");
     const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+
+    const dispatch = useDispatch();
 
     React.useEffect(()=> {
       getUser()
@@ -21,6 +26,18 @@ const Profile = ({ value, onLogout }) => {
         setEmail(user.email)
       })
     }, [])
+
+    const onSaveButtonClick = () => {
+      dispatch(updateUser({
+        dataUser: {
+          name,
+          email,
+          password,
+        },
+        onSuccess: () => alert('updated user'),
+        onError: (message) => alert(message),
+      }))
+    }
 
   return (
     <div className={cn(styles.main_container)}>
@@ -67,10 +84,14 @@ const Profile = ({ value, onLogout }) => {
         <PasswordInput
           extraClass="mb-2"
           placeholder="Пароль"
+          value={password}
           isIcon={false}
           name="password"
+          onChange={(event)=>setPassword(event.target.value)}
+
         ></PasswordInput>
         <Button
+          onClick={onSaveButtonClick}
           extraClass="mt-15"
           htmlType="submit"
           type="primary"

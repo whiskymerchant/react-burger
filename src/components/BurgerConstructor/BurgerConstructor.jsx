@@ -16,11 +16,12 @@ import { useMemo } from "react";
 import { increaseCount } from "../../services/reducers/ingredients";
 import ConstructorElementWrap from "../ConstructorElementWrap/ConstructorElementWrap";
 import Modal from "../Modal/Modal";
+import { useNavigate } from "react-router-dom";
 
-const BurgerConstructor = () => {
+const BurgerConstructor = ({user}) => {
   const { bun, ingredients } = useSelector((state) => state.constructorStore);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [orderWindow, setOrderWindow] = React.useState(false);
   const closeModalWindow = () => {
     setOrderWindow(false);
@@ -38,6 +39,10 @@ const BurgerConstructor = () => {
   });
 
   const onSendOrder = () => {
+    if (!user) {
+      navigate('/login')
+    }
+    console.log(window.location.pathname)
     const order = [];
     const bunsOrder = bun._id;
     order.push(bunsOrder);

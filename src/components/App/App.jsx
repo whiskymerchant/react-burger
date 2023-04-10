@@ -94,7 +94,7 @@ const App = () => {
     <div className={styles.app}>
       <AppHeader />
       <Routes location={background || location}>
-        <Route index Component={MainPage} />
+        <Route index element={<MainPage user={user}/>} />
         <Route
           path="/profile"
           element={

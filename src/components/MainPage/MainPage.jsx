@@ -7,12 +7,12 @@ import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import cn from "classnames";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-const MainPage = () => {
+const MainPage = ({user}) => {
   return (
     <main className={cn(styles.main)}>
       <DndProvider backend={HTML5Backend}>
         <BurgerIngredients />
-        <BurgerConstructor />
+        <BurgerConstructor user={user}/>
       </DndProvider>
     </main>
   );

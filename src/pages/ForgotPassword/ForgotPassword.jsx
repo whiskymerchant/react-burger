@@ -9,24 +9,38 @@ import { Link } from "react-router-dom";
 import { passwordReset } from "../../utils/api";
 
 const ForgotPassword = () => {
+  const [value, setValue] = React.useState();
+  const onChange = (e) => {
+    setValue(e.target.value);
+  };
 
-  const [value, setValue] = React.useState()
-  const onChange = e => {
-    setValue(e.target.value)
-  }
+  const onSubmit = (e) => {
+    e.preventDefault();
+    passwordReset({ value, onSuccess: () => alert("password sent") });
+  };
 
   return (
-    <div className={cn(styles.container, "text text_type_main-default mb-6")}>
+    <form
+      className={cn(styles.container, "text text_type_main-default mb-6")}
+      onSubmit={onSubmit}
+    >
       <h2>Восстановление пароля</h2>
       <EmailInput
         extraClass="mb-6"
         value={value}
+        onChange={(e) => setValue(e.target.value)}
         name={"email"}
         placeholder="Укажите e-mail"
         isIcon={false}
       />
 
-      <Button extraClass="mb-20" htmlType="submit" type="primary" size="large" onClick={()=>passwordReset(value)}>
+      <Button
+        extraClass="mb-20"
+        htmlType="submit"
+        type="primary"
+        size="large"
+        onClick={() => passwordReset(value)}
+      >
         Восстановить
       </Button>
       <div className={cn(styles.bottom_div)}>
@@ -35,7 +49,7 @@ const ForgotPassword = () => {
           <a className="text text_type_main-small">Войти</a>
         </Link>
       </div>
-    </div>
+    </form>
   );
 };
 

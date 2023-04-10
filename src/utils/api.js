@@ -112,17 +112,18 @@ export const getUser = () => {
   });
 };
 
-export const passwordReset = (data) => {
+export const passwordReset = ({value, onSuccess}) => {
   return fetch(`${BURGER_INGREDIENTS_API}/password-reset`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
-    body: JSON.stringify({ email: data }),
+    body: JSON.stringify({ email: value }),
   })
     .then(listenRequest)
     .then((data) => {
       if (data.success) {
+        onSuccess();
         return data;
       }
     });
@@ -152,7 +153,7 @@ export const sendCode = (data) => {
           "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify(data),
-  }).then(this.checkReponse)
+  }).then(listenRequest)
       .then(data => {
           if (data?.success) return data;
           return Promise.reject(data)
@@ -167,7 +168,7 @@ export const userInfoUpdate = (data) => {
           'authorization': getCookie('accessToken')
       },
       body: JSON.stringify(data),
-  }).then(this.checkReponse)
+  }).then(listenRequest)
       .then(data => {
           if (data?.success) return data;
           return Promise.reject(data)

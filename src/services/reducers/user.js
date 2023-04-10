@@ -7,7 +7,8 @@ import {
   getUser,
   registerUser as registerUserApi,
   loginUser as loginUserApi,
-  logoutUser as logoutUserApi
+  logoutUser as logoutUserApi,
+  userInfoUpdate
 } from "../../utils/api";
 
 const initialState = {
@@ -45,7 +46,8 @@ export const registerUser = createAsyncThunk(
   `user/registerUser`,
   async (myData, { rejectWithValue }) => {
     console.log(myData);
-    const data = await registerUserApi(myData.dataUser).catch(({ message }) =>
+    const data = await registerUserApi(myData.dataUser)
+    .catch(({ message }) =>
       myData.onError(message)
     );
     console.log("responce", data);
@@ -88,6 +90,21 @@ export const logoutUser = createAsyncThunk(
     }
     removeCookie("accessToken");
     removeCookie("refreshToken");
+    myData.onSuccess();
+    return data.user;
+  }
+);
+
+export const updateUser = createAsyncThunk(
+  `user/updateUser`,
+  async (myData, { rejectWithValue }) => {
+    const data = await userInfoUpdate(myData.dataUser).catch(({ message }) =>
+      myData.onError(message)
+    );
+    console.log("responce", data);
+    if (!data?.success) {
+      return rejectWithValue(data);
+    }
     myData.onSuccess();
     return data.user;
   }
