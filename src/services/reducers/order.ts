@@ -7,7 +7,7 @@ const initialState = {
   error: null
 }
 
-export const fetchOrderSlice = createAsyncThunk(
+export const fetchOrderSlice = createAsyncThunk<>(
   'order/fetchOrderSlice',
   async (data, thunkApi) => {
       const response = await sendOrder(data)

@@ -8,8 +8,18 @@ import { openModal } from "../../services/reducers/currentIngredient";
 import { useSelector } from "react-redux";
 import BurgerIngredientWrap from "../BurgerIngredientWrap/BurgerIngredientWrap";
 
+interface IIngredientCategory {
+  title: string;
+  id: number;
+  ingredients: string[];
+}
+
+interface RootState {
+  isOn: boolean
+}
+
 const IngredientCategory = React.forwardRef(
-  ({ title, id, ingredients, onClose }, ref) => {
+  ({ title, id, ingredients }: IIngredientCategory, ref) => {
     const dispatch = useDispatch();
     const currentIngredient = useSelector((state) => state.currentIngredient);
 

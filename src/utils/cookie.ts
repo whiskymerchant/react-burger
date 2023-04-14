@@ -1,4 +1,9 @@
-export function getCookie(name) {
+type TOptions = Record<string, any>&{
+  expires?: number | string | Date
+
+};
+
+export function getCookie(name: string) {
   const matches = document.cookie.match(
     // eslint-disable-next-line no-useless-escape
     new RegExp(
@@ -10,27 +15,26 @@ export function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name, value, props = {}) {
-  console.log(props);
-  props = {
-    path: "/",
-    ...props,
-  };
+export function setCookie(name: string, value: any, options: TOptions = {}) {
+  // const props = {
+  //   path: "/",
+  //   ...options,
+  // };
 
-  let exp = props.expires;
+  let exp = options.expires;
   if (typeof exp == "number" && exp) {
     const d = new Date();
     d.setTime(d.getTime() + exp * 1000);
-    exp = props.expires = d;
+    exp = options.expires = d;
   }
-  if (exp && exp.toUTCString) {
-    props.expires = exp.toUTCString();
+  if (exp && (exp as Date).toUTCString) {
+    options.expires = (exp as Date).toUTCString();
   }
   value = encodeURIComponent(value);
   let updatedCookie = name + "=" + value;
-  for (const propName in props) {
+  for (const propName in options) {
     updatedCookie += "; " + propName;
-    const propValue = props[propName];
+    const propValue = options[propName];
     if (propValue !== true) {
       updatedCookie += "=" + propValue;
     }
@@ -38,6 +42,6 @@ export function setCookie(name, value, props = {}) {
   document.cookie = updatedCookie;
 }
 
-export const removeCookie = (name) => {
+export const removeCookie = (name: string) => {
     setCookie(name, "");
 }

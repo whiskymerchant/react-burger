@@ -45,8 +45,6 @@ const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state?.background;
-  console.log({ location });
-  console.log({ background });
   const handleCloseModal = () => {
     navigate(background.pathname || "/", { replace: true });
   };

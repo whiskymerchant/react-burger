@@ -1,5 +1,21 @@
 import { getCookie, setCookie } from "./cookie";
 
+interface IHeaders {
+  authorization?: string;
+  "Content-Type"?: string;
+}
+
+interface IRegisterUser {
+  email: string;
+  password: string;
+  name: string;
+}
+
+interface ILoginUser {
+  email: string;
+  password: string;
+}
+
 export const BURGER_INGREDIENTS_API = "https://norma.nomoreparties.space/api";
 
 export const listenRequest = (res) => {
@@ -20,7 +36,7 @@ export const getIngredients = () => {
     });
 };
 
-export const sendOrder = (data) => {
+export const sendOrder = (data: object) => {
   return fetch(`${BURGER_INGREDIENTS_API}/orders`, {
     method: "POST",
     headers: {
@@ -48,11 +64,11 @@ export const refreshToken = () => {
   }).then(listenRequest);
 };
 
-export const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async (url: string, options: RequestInit) => {
   try {
     const res = await fetch(url, options);
     return await listenRequest(res);
-  } catch (error) {
+  } catch (error: any) {
     console.log("fetchWithRefresh", error);
     if (error.statusCode === 401 || error.statusCode === 403) {
       const refreshData = await refreshToken();
@@ -62,7 +78,11 @@ export const fetchWithRefresh = async (url, options) => {
 
       setCookie("accessToken", refreshData.accessToken);
       setCookie("refreshToken", refreshData.refreshToken);
-      options.headers.authorization = refreshData.accessToken;
+      options.headers = {
+        ...options.headers,
+        authorization: refreshData.accessToken,
+      };
+      // options.headers.authorization = refreshData.accessToken;
       const res = await fetch(url, options);
       return await listenRequest(res);
     } else {
@@ -71,7 +91,7 @@ export const fetchWithRefresh = async (url, options) => {
   }
 };
 
-export const registerUser = (data) => {
+export const registerUser = (data: IRegisterUser) => {
   return fetch(`${BURGER_INGREDIENTS_API}/auth/register`, {
     method: "POST",
     headers: {
@@ -86,7 +106,7 @@ export const registerUser = (data) => {
     });
 };
 
-export const loginUser = (data) => {
+export const loginUser = (data: ILoginUser) => {
   return fetch(`${BURGER_INGREDIENTS_API}/auth/login`, {
     method: "POST",
     headers: {
@@ -104,7 +124,7 @@ export const loginUser = (data) => {
 export const getUser = () => {
   return fetchWithRefresh(`${BURGER_INGREDIENTS_API}/auth/user`, {
     headers: {
-      authorization: getCookie("accessToken"),
+      authorization: getCookie("accessToken") ?? "",
     },
   }).then((data) => {
     if (data?.success) return data;
@@ -112,7 +132,7 @@ export const getUser = () => {
   });
 };
 
-export const passwordReset = ({value, onSuccess}) => {
+export const passwordReset = ({ value, onSuccess }) => {
   return fetch(`${BURGER_INGREDIENTS_API}/password-reset`, {
     method: "POST",
     headers: {
@@ -148,30 +168,31 @@ export const logoutUser = () => {
 
 export const sendCode = (data) => {
   return fetch(`${BURGER_INGREDIENTS_API}/password-reset/reset`, {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(data),
-  }).then(listenRequest)
-      .then(data => {
-          if (data?.success) return data;
-          return Promise.reject(data)
-      });
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify(data),
+  })
+    .then(listenRequest)
+    .then((data) => {
+      if (data?.success) return data;
+      return Promise.reject(data);
+    });
 };
 
 export const userInfoUpdate = (data) => {
   return fetch(`${BURGER_INGREDIENTS_API}/auth/user`, {
-      method: "PATCH",
-      headers: {
-          "Content-Type": "application/json;charset=utf-8",
-          'authorization': getCookie('accessToken')
-      },
-      body: JSON.stringify(data),
-  }).then(listenRequest)
-      .then(data => {
-          if (data?.success) return data;
-          return Promise.reject(data)
-      });
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      authorization: getCookie("accessToken"),
+    },
+    body: JSON.stringify(data),
+  })
+    .then(listenRequest)
+    .then((data) => {
+      if (data?.success) return data;
+      return Promise.reject(data);
+    });
 };
-
