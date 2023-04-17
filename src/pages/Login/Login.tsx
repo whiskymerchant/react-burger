@@ -11,8 +11,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../services/reducers/user";
 import { getCookie } from "../../utils/cookie";
+import { ILoginUser } from "../../utils/api";
 
-const Login = ({ onLogin, user }) => {
+type TLoginProps = {
+  onLogin: () => void;
+  user: ILoginUser;
+}
+
+const Login: React.FC<TLoginProps> = ({ onLogin, user}: any) => {
   console.log(user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +26,7 @@ const Login = ({ onLogin, user }) => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const onSubmit = (event) => {
+  const onSubmit = (event: any) => {
     event.preventDefault();
     onLogin({ email, password });
   };

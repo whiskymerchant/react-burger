@@ -6,12 +6,13 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
+import { FC } from "react";
 import { Link } from "react-router-dom";
 
 const AppHeader = () => {
   return (
     <header className={cn(styles.header, "p-4")}>
-      <nav className={cn(styles.constructor)}>
+      <nav className={styles.constructors}>
         <Link to="/">
           <BurgerIcon type="primary" />
           <span className={cn("text text_type_main-default ml-2")}>

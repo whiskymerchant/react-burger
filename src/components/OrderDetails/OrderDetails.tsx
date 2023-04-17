@@ -2,9 +2,10 @@ import styles from "./OrderDetails.module.css";
 import cn from "classnames";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { IRootReducer } from "../../services/store";
 
 const OrderDetails = () => {
-  const order = useSelector((state) => state.orderBin);
+  const order = useSelector((state: IRootReducer) => state.orderBin);
   return (
     <div className="pt-30 pb-30">
       <p

@@ -1,6 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
+import { TIngredient } from '../../types/ingredientTypes';
 
-const initialState = null;
+export type TCurrentIngredient = TIngredient | null;
+
+const initialState: TCurrentIngredient = null;
 
 export const ingredientSlice = createSlice({
   name: 'ingredient',

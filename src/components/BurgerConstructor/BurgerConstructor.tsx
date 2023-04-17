@@ -17,10 +17,17 @@ import { increaseCount } from "../../services/reducers/ingredients";
 import ConstructorElementWrap from "../ConstructorElementWrap/ConstructorElementWrap";
 import Modal from "../Modal/Modal";
 import { useNavigate } from "react-router-dom";
+import { IUserName } from "../../utils/api";
+import { IRootReducer, Store } from "../../services/store";
+import { TIngredient } from "../../types/ingredientTypes";
+import { ThunkDispatch } from "redux-thunk";
+import { AnyAction } from "redux";
 
-const BurgerConstructor = ({user}) => {
-  const { bun, ingredients } = useSelector((state) => state.constructorStore);
-  const dispatch = useDispatch();
+type AppDispatch = ThunkDispatch<Store, any, AnyAction>; 
+
+const BurgerConstructor = ({user}: any) => {
+  const { bun, ingredients } = useSelector((state: IRootReducer) => state.constructorStore);
+  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const [orderWindow, setOrderWindow] = React.useState(false);
   const closeModalWindow = () => {
@@ -29,7 +36,7 @@ const BurgerConstructor = ({user}) => {
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(ingredient, monitor) {
+    drop(ingredient: TIngredient, monitor) {
       dispatch(addConstructor(ingredient));
       dispatch(increaseCount(ingredient));
     },
@@ -42,14 +49,15 @@ const BurgerConstructor = ({user}) => {
     if (!user) {
       navigate('/login')
     }
-    console.log(window.location.pathname)
-    const order = [];
-    const bunsOrder = bun._id;
-    order.push(bunsOrder);
-    ingredients.forEach((ingredient) => {
-      order.push(ingredient._id);
-    });
-    order.push(bunsOrder);
+    const order: string[] = [];
+    const bunsOrder = bun?._id;
+    if (bunsOrder){
+      order.push(bunsOrder);
+      ingredients.forEach((ingredient) => {
+        order.push(ingredient._id);
+      });
+      order.push(bunsOrder);
+    }
     dispatch(fetchOrderSlice(order));
     setOrderWindow(true);
   };
@@ -65,21 +73,26 @@ const BurgerConstructor = ({user}) => {
       summ += ingredient.price;
     });
     return summ;
-  });
+  }, [bun, ingredients]);
 
   const divRef = React.useRef(null);
 
   return (
     <section className={cn(styles.section, "mt-25")} ref={dropTarget}>
       <div className={cn(styles.section_buns)}>
-        <ConstructorElement
+        {bun 
+        ? <ConstructorElement
           {...bun}
           type="top"
-          thumbnail={bun?.image}
-          text={`${bun?.name || "Пожалуйста перетащите булку сюда"} (верх)`}
+          price={bun.price}
+          thumbnail={bun.image}
+          text={`${bun.name || "Пожалуйста перетащите булку сюда"} (верх)`}
           isLocked={true}
         />
+        : <div> Пожалуйста перетащите булку сюда</div>
+      }
       </div>
+        
 
       <div
         className={cn(styles.no_buns_ingredients, "custom-scroll mb-4 mt-4")}
@@ -94,13 +107,16 @@ const BurgerConstructor = ({user}) => {
         ))}
       </div>
       <div className={cn(styles.section_buns)}>
-        <ConstructorElement
+      {bun 
+        ? <ConstructorElement
           {...bun}
           type="bottom"
           thumbnail={bun?.image}
           text={`${bun?.name || "Пожалуйста перетащите булку сюда"} (низ)`}
           isLocked={true}
         />
+      :<div> Пожалуйста перетащите булку сюда</div>
+      }
       </div>
 
       <div className={cn(styles.counter_final, "")}>

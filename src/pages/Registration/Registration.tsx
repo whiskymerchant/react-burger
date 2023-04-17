@@ -9,8 +9,9 @@ import cn from "classnames";
 import styles from "./Registration.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { getCookie } from "../../utils/cookie";
+import { IRegisterUser } from "../../utils/api";
 
-const Registration = ({ value, onRegister, user }) => {
+const Registration = ({ onRegister, user }: any) => {
   const [userData, setUserData] = React.useState({
     email: "",
     password: "",
@@ -19,7 +20,7 @@ const Registration = ({ value, onRegister, user }) => {
 
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setUserData({
       ...userData,
@@ -27,8 +28,8 @@ const Registration = ({ value, onRegister, user }) => {
     });
   };
 
-  const [message, setMessage] = React.useState("");
-  const handleSubmit = (e) => {
+  const [message, setMessage] = React.useState<any>("");
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     onRegister(userData);
   };
@@ -46,12 +47,12 @@ const Registration = ({ value, onRegister, user }) => {
     >
       <h2>Регистрация</h2>
       <Input
+        type={'text'}
         onChange={handleChange}
         extraClass="mb-6"
         value={userData.name}
         name={"name"}
-        placeholder="Имя"
-        isIcon={false}
+        placeholder={"Имя"}
       />
       <EmailInput
         onChange={handleChange}

@@ -1,4 +1,4 @@
-function getActionName(actionType) {
+function getActionName(actionType: string) {
   return actionType.split('/')[1];
 }
 

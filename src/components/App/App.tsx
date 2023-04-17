@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import MainPage from "../MainPage/MainPage";
@@ -10,12 +10,8 @@ import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import cn from "classnames";
 import { useDispatch } from "react-redux";
-import { fetchIngredientsSlice } from "../../services/reducers/ingredients";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
   Routes,
   useLocation,
@@ -33,10 +29,19 @@ import {
 } from "../../services/reducers/user";
 import NotFound from "../../pages/NotFound/NotFound";
 import { getCookie } from "../../utils/cookie";
+import { AnyAction, AsyncThunkAction, ThunkDispatch } from "@reduxjs/toolkit";
+import { fetchIngredientsSlice } from "../../services/reducers/ingredients";
+import { Store } from "../../services/store";
+import { ILoginUser, IRegisterUser, IUserName } from "../../utils/api";
+
+
+
+type AppDispatch = ThunkDispatch<Store, any, AnyAction>; 
+
 
 const App = () => {
-  const dispatch = useDispatch();
-  const [user, setUser] = useState(getCookie("accessToken"));
+  const dispatch: AppDispatch = useDispatch();
+  const [user, setUser] = useState<any>(getCookie("accessToken"));
 
   useEffect(() => {
     dispatch(fetchIngredientsSlice());
@@ -49,7 +54,7 @@ const App = () => {
     navigate(background.pathname || "/", { replace: true });
   };
 
-  const cbLogin = (dataUser) => {
+  const cbLogin: any = (dataUser: IRegisterUser) => {
     dispatch(
       loginUser({
         dataUser,
@@ -73,7 +78,7 @@ const App = () => {
     );
   };
 
-  const cbRegister = (dataUser) => {
+  const cbRegister = (dataUser: IRegisterUser) => {
     dispatch(
       registerUser({
         dataUser,
@@ -92,7 +97,7 @@ const App = () => {
     <div className={styles.app}>
       <AppHeader />
       <Routes location={background || location}>
-        <Route index element={<MainPage user={user}/>} />
+        <Route index element={<MainPage user={user} />} />
         <Route
           path="/profile"
           element={

@@ -7,23 +7,17 @@ import ingredientPropTypes from "../../utils/prop-types";
 import { openModal } from "../../services/reducers/currentIngredient";
 import { useSelector } from "react-redux";
 import BurgerIngredientWrap from "../BurgerIngredientWrap/BurgerIngredientWrap";
+import { TIngredient } from "../../types/ingredientTypes";
 
 interface IIngredientCategory {
   title: string;
-  id: number;
-  ingredients: string[];
-}
-
-interface RootState {
-  isOn: boolean
+  id: string;
+  ingredients: TIngredient[];
 }
 
 const IngredientCategory = React.forwardRef(
-  ({ title, id, ingredients }: IIngredientCategory, ref) => {
+  ({ title, id, ingredients }: IIngredientCategory, ref: any) => {
     const dispatch = useDispatch();
-    const currentIngredient = useSelector((state) => state.currentIngredient);
-
-    const counter = useSelector((state) => state.constructorStore);
 
     return (
       <>
@@ -31,12 +25,12 @@ const IngredientCategory = React.forwardRef(
           {title}
         </h2>
         <div className={cn(styles.category, "mb-10 mt-6")}>
-          {ingredients?.map((data) => (
+          {ingredients?.map((ingredient) => (
             <BurgerIngredientWrap
-              data={data}
-              key={data._id}
+              data={ingredient}
+              key={ingredient._id}
               onClick={() => {
-                dispatch(openModal(data));
+                dispatch(openModal(ingredient));
               }}
             />
           ))}
@@ -45,11 +39,5 @@ const IngredientCategory = React.forwardRef(
     );
   }
 );
-
-IngredientCategory.propTypes = {
-  title: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
-};
 
 export default IngredientCategory;

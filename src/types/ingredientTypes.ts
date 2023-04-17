@@ -1,5 +1,6 @@
 export type TIngredient = {
   _id: string;
+  id?: string;
   name: string;
   type: string;
   proteins: number;
@@ -11,6 +12,7 @@ export type TIngredient = {
   image_mobile: string;
   image_large: string;
   __v: number;
+  count: number | null;
   dragRef?: string;
   uuid?: number;
 }

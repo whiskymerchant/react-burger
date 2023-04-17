@@ -5,25 +5,56 @@ interface IHeaders {
   "Content-Type"?: string;
 }
 
-interface IRegisterUser {
+export interface IRegisterUser {
   email: string;
   password: string;
   name: string;
 }
 
-interface ILoginUser {
+export interface ILoginUser {
   email: string;
   password: string;
 }
 
+interface ISendCode {
+  code: string;
+}
+
+interface IUserInfoUpdate {
+  email: string;
+  password: string;
+  name: string;
+}
+
+export interface IPasswordReset {
+  password: string;
+  token: string;
+}
+
+export interface IUserName {
+  email: string;
+  name: string;
+}
+
+export interface IUserRequest {
+  onError: (error?: string) => void;
+  onSuccess: (token?: string) => void;
+}
+
+export interface IRegisteredUserRequest extends IUserRequest {
+  dataUser: IRegisterUser;
+}
+
+
+
 export const BURGER_INGREDIENTS_API = "https://norma.nomoreparties.space/api";
 
-export const listenRequest = (res) => {
+export const listenRequest = (res: any) => {
   return res.ok
     ? res.json()
     : res
         .json()
-        .then((err) => Promise.reject({ ...err, statusCode: res.status }));
+        .then((err: any) => Promise.reject({ ...err, statusCode: res.status }));
 };
 
 export const getIngredients = () => {
@@ -36,7 +67,7 @@ export const getIngredients = () => {
     });
 };
 
-export const sendOrder = (data: object) => {
+export const sendOrder = (data: unknown) => {
   return fetch(`${BURGER_INGREDIENTS_API}/orders`, {
     method: "POST",
     headers: {
@@ -132,13 +163,15 @@ export const getUser = () => {
   });
 };
 
-export const passwordReset = ({ value, onSuccess }) => {
+
+// export const passwordReset = ({value, onSuccess}) =>
+export const passwordReset = ({email , onSuccess}:{email: string, onSuccess:() => void}) => {
   return fetch(`${BURGER_INGREDIENTS_API}/password-reset`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
-    body: JSON.stringify({ email: value }),
+    body: JSON.stringify({ email }),
   })
     .then(listenRequest)
     .then((data) => {
@@ -166,7 +199,7 @@ export const logoutUser = () => {
     });
 };
 
-export const sendCode = (data) => {
+export const sendCode = (data: ISendCode) => {
   return fetch(`${BURGER_INGREDIENTS_API}/password-reset/reset`, {
     method: "POST",
     headers: {
@@ -181,12 +214,12 @@ export const sendCode = (data) => {
     });
 };
 
-export const userInfoUpdate = (data) => {
+export const userInfoUpdate = (data: IUserInfoUpdate) => {
   return fetch(`${BURGER_INGREDIENTS_API}/auth/user`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      authorization: getCookie("accessToken"),
+      authorization: getCookie("accessToken") ?? "",
     },
     body: JSON.stringify(data),
   })

@@ -14,8 +14,10 @@ import { useDrag, useDrop } from "react-dnd";
 import { decreaseCount } from "../../services/reducers/ingredients";
 import PropTypes from "prop-types";
 
-function ConstructorElementWrap({ data, index }) {
-  const ref = useRef();
+
+
+function ConstructorElementWrap({ data, index }: any) {
+  const ref: any = useRef();
   const dispatch = useDispatch();
 
   const [{ isDragSorted }, dragRefSorted] = useDrag({
@@ -35,7 +37,7 @@ function ConstructorElementWrap({ data, index }) {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item, monitor) {
+    hover(item: any, monitor) {
       if (!ref.current) {
         return;
       }
@@ -47,7 +49,7 @@ function ConstructorElementWrap({ data, index }) {
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      const clientOffset = monitor.getClientOffset();
+      const clientOffset: any = monitor.getClientOffset();
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
@@ -64,7 +66,7 @@ function ConstructorElementWrap({ data, index }) {
 
   return (
     <div ref={ref} className={cn(styles.constructor_container)}>
-      <DragIcon className={cn(styles.dragicon)} type="primary" />
+      <DragIcon type="primary" />
       <ConstructorElement
         thumbnail={data.image}
         key={data.id}
@@ -78,10 +80,5 @@ function ConstructorElementWrap({ data, index }) {
     </div>
   );
 }
-
-ConstructorElementWrap.propTypes = {
-  data: PropTypes.object.isRequired,
-  index: PropTypes.number,
-};
 
 export default ConstructorElementWrap;

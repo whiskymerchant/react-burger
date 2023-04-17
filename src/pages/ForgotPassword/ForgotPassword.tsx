@@ -6,17 +6,19 @@ import React from "react";
 import cn from "classnames";
 import styles from "./ForgotPassword.module.css";
 import { Link } from "react-router-dom";
-import { passwordReset } from "../../utils/api";
+import { IPasswordReset, passwordReset } from "../../utils/api";
 
 const ForgotPassword = () => {
-  const [value, setValue] = React.useState();
-  const onChange = (e) => {
-    setValue(e.target.value);
+  const [email, setEmail] = React.useState<string>("");
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    passwordReset({ value, onSuccess: () => alert("password sent") });
+    passwordReset({email, onSuccess: () => alert("password sent")});
+
   };
 
   return (
@@ -27,8 +29,8 @@ const ForgotPassword = () => {
       <h2>Восстановление пароля</h2>
       <EmailInput
         extraClass="mb-6"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={email}
+        onChange={onChange}
         name={"email"}
         placeholder="Укажите e-mail"
         isIcon={false}
@@ -39,7 +41,6 @@ const ForgotPassword = () => {
         htmlType="submit"
         type="primary"
         size="large"
-        onClick={() => passwordReset(value)}
       >
         Восстановить
       </Button>

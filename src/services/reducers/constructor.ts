@@ -1,7 +1,13 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
+import { TIngredient } from '../../types/ingredientTypes';
 
-const initialState = {
+export interface IConstructor {
+    bun: TIngredient | null,
+    ingredients: TIngredient[]
+}
+
+const initialState: IConstructor = {
   bun: null,
   ingredients: []
 }

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, SerializedError, ThunkAction, AnyAction } from "@reduxjs/toolkit";
 import isActionPending from "../../utils/isActionPending";
 import isActionRejected from "../../utils/isActionRejected";
 import getActionName from "../../utils/getActionName";
@@ -8,10 +8,31 @@ import {
   registerUser as registerUserApi,
   loginUser as loginUserApi,
   logoutUser as logoutUserApi,
-  userInfoUpdate
+  userInfoUpdate,
+  ILoginUser,
+  IRegisterUser,
+  IUserName,
+  IRegisteredUserRequest,
+  IUserRequest
 } from "../../utils/api";
 
-const initialState = {
+
+
+export interface TUserState {
+  isAuthChecked: boolean;
+  data: ILoginUser | null;
+
+  registerUserError: SerializedError | null;
+  registerUserRequest: boolean;
+
+  loginUserError: SerializedError | null;
+  loginUserRequest: boolean;
+
+  getUserError: SerializedError | null;
+  getUserRequest: boolean;
+}
+
+const initialState: TUserState = {
   isAuthChecked: false,
   data: null,
 
@@ -24,6 +45,8 @@ const initialState = {
   getUserError: null,
   getUserRequest: false,
 };
+
+
 
 export const checkUserAuth = createAsyncThunk(
   `user/checkUserAuth`,
@@ -44,7 +67,7 @@ export const checkUserAuth = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
   `user/registerUser`,
-  async (myData, { rejectWithValue }) => {
+  async (myData: IRegisteredUserRequest, { rejectWithValue }) => {
     console.log(myData);
     const data = await registerUserApi(myData.dataUser)
     .catch(({ message }) =>
@@ -63,7 +86,7 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   `user/loginUser`,
-  async (myData, { rejectWithValue }) => {
+  async (myData: IRegisteredUserRequest, { rejectWithValue }) => {
     const data = await loginUserApi(myData.dataUser).catch(({ message }) =>
       myData.onError(message)
     );
@@ -80,7 +103,7 @@ export const loginUser = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
   `user/logoutUser`,
-  async (myData, { rejectWithValue }) => {
+  async (myData: IUserRequest, { rejectWithValue }) => {
     const data = await logoutUserApi().catch(({ message }) =>
       myData.onError(message)
     );
@@ -97,7 +120,7 @@ export const logoutUser = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
   `user/updateUser`,
-  async (myData, { rejectWithValue }) => {
+  async (myData: IRegisteredUserRequest, { rejectWithValue }) => {
     const data = await userInfoUpdate(myData.dataUser).catch(({ message }) =>
       myData.onError(message)
     );
@@ -132,13 +155,19 @@ const user = createSlice({
         state.data = action.payload;
         state.loginUserRequest = false;
       })
-      .addMatcher(isActionPending, (state, action) => {
-        state[`${getActionName(action.type)}Request`] = true;
-        state[`${getActionName(action.type)}Error`] = null;
+      .addMatcher(isActionPending, (state: any, action) => {
+        // state[`${getActionName(action.type)}Request`] = true;
+        // state[`${getActionName(action.type)}Error`] = null;
+
+        state = { ...state, [`${getActionName(action.type)}Request`]: true }
+        state = { ...state, [`${getActionName(action.type)}Error`]: null }
       })
       .addMatcher(isActionRejected, (state, action) => {
-        state[`${getActionName(action.type)}Error`] = action.payload;
-        state[`${getActionName(action.type)}Request`] = false;
+        // state[`${getActionName(action.type)}Error`] = action.payload;
+        // state[`${getActionName(action.type)}Request`] = false;
+
+        state = { ...state, [`${getActionName(action.type)}Request`]: false }
+        state = { ...state, [`${getActionName(action.type)}Error`]: action.payload }
       });
   },
 });

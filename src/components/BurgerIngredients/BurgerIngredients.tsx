@@ -8,9 +8,10 @@ import { useInView } from "react-intersection-observer";
 import { closeModal } from "../../services/reducers/currentIngredient";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import { IRootReducer } from "../../services/store";
 
 const BurgerIngredients = () => {
-  const ingredients = useSelector((state) => state.ingredientsStore.data);
+  const ingredients = useSelector((state: IRootReducer) => state.ingredientsStore.data);
   const [current, setCurrent] = React.useState("bun");
   const breads = React.useMemo(
     () => ingredients.filter((item) => item.type === "bun"),
@@ -25,7 +26,7 @@ const BurgerIngredients = () => {
     [ingredients]
   );
 
-  function switchIngredientsTab(tab) {
+  function switchIngredientsTab(tab: any) {
     setCurrent(tab);
     const ingredientName = document.getElementById(tab);
     if (ingredientName) {
@@ -35,9 +36,6 @@ const BurgerIngredients = () => {
   const { ref: refBuns, inView: inViewBuns } = useInView();
   const { ref: refSauce, inView: inViewSauce } = useInView();
   const { ref: refMains, inView: inViewMains } = useInView();
-
-  const dispatch = useDispatch();
-  const currentIngredient = useSelector((state) => state.currentIngredient);
 
   React.useEffect(() => {
     if (inViewBuns) {

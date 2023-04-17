@@ -1,15 +1,30 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { sendOrder } from '../../utils/api';
+import { TIngredient } from '../../types/ingredientTypes';
 
-const initialState = {
+export interface IOrder {
+  number: string;
+}
+export interface IBinState {
+  name: string;
+  order: IOrder;
+}
+
+export interface IInitialState {
+  data: IBinState | null,
+  isLoading: boolean,
+  error?: boolean | unknown,
+} 
+
+const initialState: IInitialState = {
   data: null,
   isLoading: false,
   error: null
 }
 
-export const fetchOrderSlice = createAsyncThunk<>(
+export const fetchOrderSlice = createAsyncThunk(
   'order/fetchOrderSlice',
-  async (data, thunkApi) => {
+  async (data: string[], thunkApi) => {
       const response = await sendOrder(data)
       if (!response) {
         return thunkApi.rejectWithValue('Server error')
@@ -21,6 +36,7 @@ export const fetchOrderSlice = createAsyncThunk<>(
 export const orderSlice = createSlice({
   name: 'order',
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchOrderSlice.pending, (state) => {

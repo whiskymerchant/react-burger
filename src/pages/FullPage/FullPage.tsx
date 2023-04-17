@@ -1,13 +1,14 @@
-import styles from "./IngredientDetails.module.css";
-import cn from "classnames";
-import PropTypes from "prop-types";
+import React from "react";
+import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router";
-import { useParams } from "react-router-dom";
+import cn from "classnames";
+import styles from "./FullPage.module.css";
+import { IRootReducer } from "../../services/store";
 
-const IngredientDetails = () => {
+const FullPage = () => {
   const {idIngredient} = useParams();
-  const ingredients = useSelector(state => state.ingredientsStore.data)
+  const ingredients = useSelector((state: IRootReducer) => state.ingredientsStore.data)
   const currentIngredient = ingredients.find(item => item._id === idIngredient)
   console.log({currentIngredient});
   return (
@@ -97,6 +98,4 @@ const IngredientDetails = () => {
   );
 };
 
-
-
-export default IngredientDetails;
+export default FullPage;

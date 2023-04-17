@@ -9,14 +9,23 @@ import styles from "./Profile.module.css";
 import { getUser } from "../../utils/api";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../services/reducers/user";
+import { ThunkDispatch } from "redux-thunk";
+import { Store } from "../../services/store";
+import { AnyAction } from "redux";
 
-const Profile = ({ value, onLogout }) => {
+interface IProfileLogout {
+  onLogout: () => void;
+}
+
+type AppDispatch = ThunkDispatch<Store, any, AnyAction>; 
+
+const Profile: React.FC<IProfileLogout> = ({ onLogout }) => {
 
     const [name, setName] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
 
-    const dispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
 
     React.useEffect(()=> {
       getUser()
@@ -69,14 +78,14 @@ const Profile = ({ value, onLogout }) => {
           extraClass="mb-2"
           name={"name"}
           placeholder="Имя"
-          isIcon={false}
+          icon={'EditIcon'}
           value={name}
           onChange={(event)=>setName(event.target.value)}
         />
         <Input
           extraClass="mb-2"
           placeholder="Логин"
-          isIcon={false}
+          icon={'EditIcon'}
           name="login"
           value={email}
           onChange={(event)=>setEmail(event.target.value)}
@@ -85,7 +94,7 @@ const Profile = ({ value, onLogout }) => {
           extraClass="mb-2"
           placeholder="Пароль"
           value={password}
-          isIcon={false}
+          icon={'EditIcon'}
           name="password"
           onChange={(event)=>setPassword(event.target.value)}
 

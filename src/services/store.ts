@@ -1,10 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
-import ingredients from './reducers/ingredients';
-import constructor from './reducers/constructor';
-import ingredient from './reducers/currentIngredient';
-import order from './reducers/order';
-import user from './reducers/user';
+import ingredients, { TIngredientsState } from './reducers/ingredients';
+import constructor, { IConstructor } from './reducers/constructor';
+import ingredient, { TCurrentIngredient } from './reducers/currentIngredient';
+import order, { IInitialState } from './reducers/order';
+import user, { TUserState } from './reducers/user';
+import { useDispatch } from 'react-redux'
 
+export interface IRootReducer {
+  ingredientsStore: TIngredientsState,
+  constructorStore: IConstructor,
+  currentIngredient: TCurrentIngredient,
+  orderBin: IInitialState,
+  loadUser: TUserState,
+}
 
 const store = configureStore({
   reducer: {
@@ -16,5 +24,8 @@ const store = configureStore({
   },
 })
 
-export type Store = typeof store;
+export type Store = typeof store.dispatch;
+export const useAppDispatch: () => Store = useDispatch;
+// export type RootState = typeof store.getState;
+
 export default store;

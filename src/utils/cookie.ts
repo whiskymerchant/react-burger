@@ -1,6 +1,5 @@
 type TOptions = Record<string, any>&{
   expires?: number | string | Date
-
 };
 
 export function getCookie(name: string) {
