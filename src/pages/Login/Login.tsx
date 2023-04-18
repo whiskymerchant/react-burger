@@ -19,7 +19,6 @@ type TLoginProps = {
 }
 
 const Login: React.FC<TLoginProps> = ({ onLogin, user}: any) => {
-  console.log(user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

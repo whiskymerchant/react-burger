@@ -30,7 +30,7 @@ import {
 import NotFound from "../../pages/NotFound/NotFound";
 import { getCookie } from "../../utils/cookie";
 import { AnyAction, AsyncThunkAction, ThunkDispatch } from "@reduxjs/toolkit";
-import { fetchIngredientsSlice } from "../../services/reducers/ingredients";
+import { fetchIngredientsThunk } from "../../services/reducers/ingredients";
 import { Store } from "../../services/store";
 import { ILoginUser, IRegisterUser, IUserName } from "../../utils/api";
 
@@ -44,7 +44,7 @@ const App = () => {
   const [user, setUser] = useState<any>(getCookie("accessToken"));
 
   useEffect(() => {
-    dispatch(fetchIngredientsSlice());
+    dispatch(fetchIngredientsThunk());
   }, [dispatch]);
 
   const location = useLocation();

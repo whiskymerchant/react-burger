@@ -9,22 +9,25 @@ import { closeModal } from "../../services/reducers/currentIngredient";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { IRootReducer } from "../../services/store";
+import { log } from "console";
 
 const BurgerIngredients = () => {
-  const ingredients = useSelector((state: IRootReducer) => state.ingredientsStore.data);
+  const ingredients = useSelector(
+    (state: IRootReducer) => state.ingredientsStore.data
+  );
   const [current, setCurrent] = React.useState("bun");
-  const breads = React.useMemo(
-    () => ingredients.filter((item) => item.type === "bun"),
-    [ingredients]
-  );
-  const sauces = React.useMemo(
-    () => ingredients.filter((item) => item.type === "sauce"),
-    [ingredients]
-  );
-  const ingred = React.useMemo(
-    () => ingredients.filter((item) => item.type === "main"),
-    [ingredients]
-  );
+  const breads = React.useMemo(() => {
+    // debugger;
+    return ingredients.filter((item) => item.type === "bun");
+  }, [ingredients]);
+  const sauces = React.useMemo(() => {
+    // debugger;
+    return ingredients.filter((item) => item.type === "sauce");
+  }, [ingredients]);
+  const ingred = React.useMemo(() => {
+    // debugger;
+    return ingredients.filter((item) => item.type === "main");
+  }, [ingredients]);
 
   function switchIngredientsTab(tab: any) {
     setCurrent(tab);

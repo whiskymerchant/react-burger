@@ -68,12 +68,10 @@ export const checkUserAuth = createAsyncThunk(
 export const registerUser = createAsyncThunk(
   `user/registerUser`,
   async (myData: IRegisteredUserRequest, { rejectWithValue }) => {
-    console.log(myData);
     const data = await registerUserApi(myData.dataUser)
     .catch(({ message }) =>
       myData.onError(message)
     );
-    console.log("responce", data);
     if (!data?.success) {
       return rejectWithValue(data);
     }
@@ -90,7 +88,6 @@ export const loginUser = createAsyncThunk(
     const data = await loginUserApi(myData.dataUser).catch(({ message }) =>
       myData.onError(message)
     );
-    console.log("responce", data);
     if (!data?.success) {
       return rejectWithValue(data);
     }
@@ -107,7 +104,6 @@ export const logoutUser = createAsyncThunk(
     const data = await logoutUserApi().catch(({ message }) =>
       myData.onError(message)
     );
-    console.log("responce", data);
     if (!data?.success) {
       return rejectWithValue(data);
     }
@@ -124,7 +120,6 @@ export const updateUser = createAsyncThunk(
     const data = await userInfoUpdate(myData.dataUser).catch(({ message }) =>
       myData.onError(message)
     );
-    console.log("responce", data);
     if (!data?.success) {
       return rejectWithValue(data);
     }

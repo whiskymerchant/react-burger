@@ -45,8 +45,6 @@ export interface IRegisteredUserRequest extends IUserRequest {
   dataUser: IRegisterUser;
 }
 
-
-
 export const BURGER_INGREDIENTS_API = "https://norma.nomoreparties.space/api";
 
 export const listenRequest = (res: any) => {
@@ -100,7 +98,6 @@ export const fetchWithRefresh = async (url: string, options: RequestInit) => {
     const res = await fetch(url, options);
     return await listenRequest(res);
   } catch (error: any) {
-    console.log("fetchWithRefresh", error);
     if (error.statusCode === 401 || error.statusCode === 403) {
       const refreshData = await refreshToken();
       if (!refreshData.success) {

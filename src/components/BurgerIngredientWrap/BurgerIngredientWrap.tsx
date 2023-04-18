@@ -21,7 +21,6 @@ const BurgerIngredientWrap: FC<TBurgerIngredientWrap> = (props) => {
   // } else count = undefined;
 
   const opacity = isDrag ? 0.4 : 1;
-  console.log(data)
   return (
     <Link
       to={`/ingredient/${data._id}`}

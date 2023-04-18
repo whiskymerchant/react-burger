@@ -10,7 +10,6 @@ const FullPage = () => {
   const {idIngredient} = useParams();
   const ingredients = useSelector((state: IRootReducer) => state.ingredientsStore.data)
   const currentIngredient = ingredients.find(item => item._id === idIngredient)
-  console.log({currentIngredient});
   return (
     <div className={cn(styles.modal, 'pt-10 pb-15')} >
       <div className={cn(styles.image_container, "mr-25 ml-25 mb-4")}>

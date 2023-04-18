@@ -15,8 +15,8 @@ const initialState: TIngredientsState = {
   error: null,
 };
 
-export const fetchIngredientsSlice = createAsyncThunk(
-  "ingredients/fetchIngredientsSlice",
+export const fetchIngredientsThunk = createAsyncThunk(
+  "ingredients/fetchIngredientsThunk",
   async (_, { dispatch, getState, rejectWithValue, fulfillWithValue }) => {
     const data = await getIngredients();
     if (!data) {
@@ -39,27 +39,33 @@ export const ingredientSlice = createSlice({
       const newData = state.data.map((ingredient) => {
         let count;
         if (ingredient.type === "bun" && currentIngredientType === "bun") {
-          ingredient.count = null; // changed to null instead of 0
+          count = null; // changed to null instead of 0
         }
         if (ingredient._id === currentIngredientId) {
           if (ingredient.type === "bun") {
             count = 2;
           } else {
-            count = ingredient.count ? ++ingredient.count : 1;
+            count = ingredient.count ? ingredient.count + 1 : 1;
+          }
+        } else {
+          if (ingredient.type === "bun") {
+            count = 0;
           }
         }
-        return ingredient._id === currentIngredientId
-          ? {
-              ...ingredient,
-              count: count,
-            }
-          : ingredient;
+        const result =
+          ingredient._id === currentIngredientId
+            ? {
+                ...ingredient,
+                count: count,
+              }
+            : ingredient;
+        return result;
       });
 
-      return void { ...state, data: newData };
+      return { ...state, data: newData };
     },
     decreaseCount: (state, action: PayloadAction<TIngredient["_id"]>) => {
-      return void {
+      return {
         ...state,
         data: state.data.map((item) => {
           const { count, _id } = item;
@@ -67,7 +73,7 @@ export const ingredientSlice = createSlice({
             return item;
           }
           const isCountExsit = typeof count === "number";
-          const isCountPositive = isCountExsit && count > 1 ;
+          const isCountPositive = isCountExsit && count > 1;
           return {
             ...item,
             count: isCountPositive ? count - 1 : null,
@@ -78,16 +84,16 @@ export const ingredientSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchIngredientsSlice.pending, (state) => {
+      .addCase(fetchIngredientsThunk.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchIngredientsSlice.fulfilled, (state, action) => {
+      .addCase(fetchIngredientsThunk.fulfilled, (state, action) => {
         state.data = action.payload;
         state.isLoading = false;
       })
-      .addCase(fetchIngredientsSlice.rejected, (state, action) => {
-        state.error = action.payload as TIngredientsState['error'];
+      .addCase(fetchIngredientsThunk.rejected, (state, action) => {
+        state.error = action.payload as TIngredientsState["error"];
         state.isLoading = false;
       });
   },

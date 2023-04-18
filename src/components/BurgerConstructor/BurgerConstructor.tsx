@@ -38,6 +38,7 @@ const BurgerConstructor = ({user}: any) => {
     accept: "ingredient",
     drop(ingredient: TIngredient, monitor) {
       dispatch(addConstructor(ingredient));
+
       dispatch(increaseCount(ingredient));
     },
     collect: (monitor) => ({

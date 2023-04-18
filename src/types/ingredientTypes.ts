@@ -12,7 +12,7 @@ export type TIngredient = {
   image_mobile: string;
   image_large: string;
   __v: number;
-  count: number | null;
+  count?: number | null;
   dragRef?: string;
   uuid?: number;
 }
