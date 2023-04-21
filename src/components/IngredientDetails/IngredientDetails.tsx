@@ -1,6 +1,5 @@
 import styles from "./IngredientDetails.module.css";
 import cn from "classnames";
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { useParams } from "react-router-dom";
@@ -12,6 +11,7 @@ const IngredientDetails = () => {
   const currentIngredient = ingredients.find(item => item._id === idIngredient)
   return (
     <div className={cn(styles.modal, 'pt-10 pb-15')} >
+      <p className="text text_type_main-large ml-30 mb-4">Детали ингредиента</p>
       <div className={cn(styles.image_container, "mr-25 ml-25 mb-4")}>
         <img className={cn(styles.image)} src={currentIngredient?.image_large}></img>
       </div>

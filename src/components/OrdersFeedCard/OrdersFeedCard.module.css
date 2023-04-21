@@ -1,0 +1,26 @@
+.container {
+  padding: 24px;
+  width: 524px;
+  background: #1c1c21;
+  border-radius: 40px;
+  margin-right: 10px;
+}
+
+.date_number {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ingred_price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ingred_price .price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+}

@@ -12,7 +12,6 @@ import cn from "classnames";
 import styles from "./ConstructorElementWrap.module.css";
 import { useDrag, useDrop } from "react-dnd";
 import { decreaseCount } from "../../services/reducers/ingredients";
-import PropTypes from "prop-types";
 
 
 

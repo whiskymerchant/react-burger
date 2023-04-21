@@ -2,10 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import styles from "./IngredientCategory.module.css";
 import cn from "classnames";
-import PropTypes from "prop-types";
-import ingredientPropTypes from "../../utils/prop-types";
 import { openModal } from "../../services/reducers/currentIngredient";
-import { useSelector } from "react-redux";
 import BurgerIngredientWrap from "../BurgerIngredientWrap/BurgerIngredientWrap";
 import { TIngredient } from "../../types/ingredientTypes";
 

@@ -32,7 +32,10 @@ import { getCookie } from "../../utils/cookie";
 import { AnyAction, AsyncThunkAction, ThunkDispatch } from "@reduxjs/toolkit";
 import { fetchIngredientsThunk } from "../../services/reducers/ingredients";
 import { Store } from "../../services/store";
-import { ILoginUser, IRegisterUser, IUserName } from "../../utils/api";
+import { BURGER_API_WSS_FEED, ILoginUser, IRegisterUser, IUserName } from "../../utils/api";
+import { wsConnectFeed, wsDisconnectFeed } from "../../services/reducers/feed/actions";
+import { FeedsPage } from "../../pages/FeedsPage/FeedsPage";
+import { MyOrdersPage } from "../../pages/MyOrdersPage/MyOrdersPage";
 
 
 
@@ -46,6 +49,8 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchIngredientsThunk());
   }, [dispatch]);
+
+
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -119,6 +124,13 @@ const App = () => {
         <Route path="*" element={<NotFound />} />
 
         <Route path="/ingredient/:idIngredient" element={<FullPage />} />
+        <Route path="/feed" element={<FeedsPage />} />
+        {/* <Route path="/feed/:idIngredient" element={<FullPage />} /> */}
+        <Route path="/order" element={<MyOrdersPage />} />
+
+
+
+
       </Routes>
       {background && (
         <Routes>

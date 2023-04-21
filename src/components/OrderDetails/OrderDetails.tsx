@@ -1,7 +1,6 @@
 import styles from "./OrderDetails.module.css";
 import cn from "classnames";
 import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
 import { IRootReducer } from "../../services/store";
 
 const OrderDetails = () => {
@@ -30,10 +29,6 @@ const OrderDetails = () => {
       </p>
     </div>
   );
-};
-
-OrderDetails.propTypes = {
-  onClose: PropTypes.func,
 };
 
 export default OrderDetails;

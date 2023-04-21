@@ -1,0 +1,22 @@
+.container {
+  width: 55px;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgb(0, 0, 0);
+  position: relative;
+
+  margin-left: -16px;
+  border: 2px solid rgb(93, 11, 145);
+  border-radius: 100px;
+}
+.blured {
+  opacity: 0.5;
+}
+
+.count {
+  position: absolute;
+}

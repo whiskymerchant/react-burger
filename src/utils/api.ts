@@ -46,6 +46,8 @@ export interface IRegisteredUserRequest extends IUserRequest {
 }
 
 export const BURGER_INGREDIENTS_API = "https://norma.nomoreparties.space/api";
+export const BURGER_API_WSS_ORDERS = "wss://norma.nomoreparties.space/orders";
+export const BURGER_API_WSS_FEED = "wss://norma.nomoreparties.space/orders/all";
 
 export const listenRequest = (res: any) => {
   return res.ok
