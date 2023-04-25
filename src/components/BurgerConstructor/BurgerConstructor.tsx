@@ -17,7 +17,6 @@ import { increaseCount } from "../../services/reducers/ingredients";
 import ConstructorElementWrap from "../ConstructorElementWrap/ConstructorElementWrap";
 import Modal from "../Modal/Modal";
 import { useNavigate } from "react-router-dom";
-import { IUserName } from "../../utils/api";
 import { IRootReducer, Store } from "../../services/store";
 import { TIngredient } from "../../types/ingredientTypes";
 import { ThunkDispatch } from "redux-thunk";

@@ -3,13 +3,9 @@ import styles from "./BurgerIngredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import IngredientCategory from "../IngredientCategory/IngredientCategory";
-import { useDispatch, useSelector } from "react-redux/es/exports";
+import { useSelector } from "react-redux/es/exports";
 import { useInView } from "react-intersection-observer";
-import { closeModal } from "../../services/reducers/currentIngredient";
-import Modal from "../Modal/Modal";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { IRootReducer } from "../../services/store";
-import { log } from "console";
 
 const BurgerIngredients = () => {
   const ingredients = useSelector(

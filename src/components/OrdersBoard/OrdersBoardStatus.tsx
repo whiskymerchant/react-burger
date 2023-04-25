@@ -1,62 +1,63 @@
-import { FC } from "react";
-import { useSelector } from "react-redux";
-import styles from "./OrdersBoardStatus.module.css";
-import { IRootReducer } from "../../services/store";
-import { TOrderState } from "../../services/reducers/feed/reducer";
+import { FC } from 'react';
+import { useSelector } from 'react-redux';
+import styles from './OrdersBoardStatus.module.css';
+import { IRootReducer } from '../../services/store';
+import { TOrderState } from '../../services/reducers/feed/reducer';
+import { TOrder } from '../../services/reducers/orders/reducer';
+import cn from 'classnames';
 
 const OrdersBoardStatus: FC = () => {
-  const { data } = useSelector<IRootReducer, TOrderState>(
-    (store) => store.liveOrder
-  );
+	const { data } = useSelector<IRootReducer, TOrderState>(
+		(store) => store.liveOrder
+	);
 
-  if (!data) return <>no feeds</>;
+	if (!data) return <p>Error</p>;
 
-  const feedsDone: Array<number> = [];
-  const feedsCooking: Array<number> = [];
+	const feedsDone: TOrder[] = data.orders
+		.filter((order) => order.status === 'done')
+		.slice(0, 5);
+	const feedsCooking: TOrder[] = data.orders
+		.filter((order) => order.status === 'pending')
+		.slice(0, 5);
 
-  data.orders.forEach((el) => {
-    if (el.status === "done") feedsDone.push(el.number);
-    else feedsCooking.push(el.number);
-  });
-  const columns = [0, 1, 2];
-  const feedTotal = `${Math.floor(data.total / 1000)} ${data.total % 1000}`;
-  return (
-    <div>
-      <div className={`${styles.columns} mb-15`}>
-        <div className={styles.column}>
-          <div className={styles.columnTitle}>
-            <p className="text text_type_main-medium pb-6">Готовы:</p>
-          </div>
-          <div className={styles.column_numbers}>
-            {columns.map((el) => {
-              return (
-                <div className={styles.column}>
-                  {feedsDone.slice(el * 5, (el + 1) * 5).map((el) => {
-                    return (
-                      <p
-                        className={`${styles.ready} text text_type_digits-default mb-2`}
-                      >
-                        {el}
-                      </p>
-                    );
-                  })}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className={styles.column}>
-          <p className="text text_type_main-medium pb-6">В работе:</p>
-          {feedsCooking.slice(0, 5).map((el, index) => {
-            return <p className={`text text_type_digits-default mb-2`}>{el}</p>;
-          })}
-        </div>
-      </div>
-      <p className="text text_type_main-medium">Выполнено за все время:</p>
-      <p className="text text_type_digits-large mb-15">{feedTotal}</p>
-      <p className="text text_type_main-medium">Выполнено за сегодня:</p>
-      <p className="text text_type_digits-large">{data.totalToday}</p>
-    </div>
-  );
+	return (
+		<div>
+			<div className={cn(styles.columns, 'mb-15')}>
+				<div className={styles.column}>
+					<div className={styles.columnTitle}>
+						<p className="text text_type_main-medium pb-6">Готовы:</p>
+					</div>
+					<div className={styles.column_numbers}>
+						<div className={styles.column}>
+							{feedsDone.map((el) => {
+								return (
+									<p
+										className={cn(
+											styles.ready,
+											'text text_type_digits-default mb-2'
+										)}
+									>
+										{el.number}
+									</p>
+								);
+							})}
+						</div>
+					</div>
+				</div>
+				<div className={styles.column}>
+					<p className="text text_type_main-medium pb-6">В работе:</p>
+					{feedsCooking.map((el) => {
+						return (
+							<p className="text text_type_digits-default mb-2">{el.number}</p>
+						);
+					})}
+				</div>
+			</div>
+			<p className="text text_type_main-medium">Выполнено за все время:</p>
+			<p className="text text_type_digits-large mb-15">{data.total}</p>
+			<p className="text text_type_main-medium">Выполнено за сегодня:</p>
+			<p className="text text_type_digits-large">{data.totalToday}</p>
+		</div>
+	);
 };
 export default OrdersBoardStatus;

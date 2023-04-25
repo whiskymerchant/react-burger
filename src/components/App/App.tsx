@@ -6,9 +6,6 @@ import Profile from "../../pages/Profile/Profile";
 import Login from "../../pages/Login/Login";
 import Registration from "../../pages/Registration/Registration";
 import ForgotPassword from "../../pages/ForgotPassword/ForgotPassword";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import cn from "classnames";
 import { useDispatch } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -29,18 +26,15 @@ import {
 } from "../../services/reducers/user";
 import NotFound from "../../pages/NotFound/NotFound";
 import { getCookie } from "../../utils/cookie";
-import { AnyAction, AsyncThunkAction, ThunkDispatch } from "@reduxjs/toolkit";
+import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import { fetchIngredientsThunk } from "../../services/reducers/ingredients";
 import { Store } from "../../services/store";
-import { BURGER_API_WSS_FEED, ILoginUser, IRegisterUser, IUserName } from "../../utils/api";
-import { wsConnectFeed, wsDisconnectFeed } from "../../services/reducers/feed/actions";
+import { IRegisterUser } from "../../utils/api";
 import { FeedsPage } from "../../pages/FeedsPage/FeedsPage";
-import { MyOrdersPage } from "../../pages/MyOrdersPage/MyOrdersPage";
+import OrderModal from "../OrderModal/OrderModal";
+import OrdersPage from "../../pages/OrdersPage/OrdersPage";
 
-
-
-type AppDispatch = ThunkDispatch<Store, any, AnyAction>; 
-
+type AppDispatch = ThunkDispatch<Store, any, AnyAction>;
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -49,8 +43,6 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchIngredientsThunk());
   }, [dispatch]);
-
-
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -125,12 +117,16 @@ const App = () => {
 
         <Route path="/ingredient/:idIngredient" element={<FullPage />} />
         <Route path="/feed" element={<FeedsPage />} />
-        {/* <Route path="/feed/:idIngredient" element={<FullPage />} /> */}
-        <Route path="/order" element={<MyOrdersPage />} />
-
-
-
-
+        <Route path="/feed/:idOrder" element={<OrderModal />} />
+        <Route
+          path="/profile/orders"
+          element={
+            <ProtectedRoute user={user}>
+              <OrdersPage onLogout={onLogout} />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/profile/orders/:idOrder" element={<OrderModal />} />
       </Routes>
       {background && (
         <Routes>
@@ -139,6 +135,22 @@ const App = () => {
             element={
               <Modal onClose={handleCloseModal}>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="feed/:idOrder"
+            element={
+              <Modal onClose={handleCloseModal}>
+                <OrderModal />
+              </Modal>
+            }
+          />
+          <Route
+            path="profile/orders/:idOrder"
+            element={
+              <Modal onClose={handleCloseModal}>
+                <OrderModal />
               </Modal>
             }
           />
