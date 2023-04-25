@@ -19,13 +19,6 @@ export const OrdersFeedsList = ({ path, data }: IOrdersFeedsList) => {
 
 	let location = useLocation();
 
-	// useEffect(() => {
-	//     if (ingredients.length === 0) {
-	//         getIngredientsAction();
-	//     }
-
-	// }, []);
-
 	return (
 		<div className={cn(styles.container, 'custom-scroll')}>
 			{data.orders.map((order) => {

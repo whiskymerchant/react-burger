@@ -43,7 +43,6 @@ export const OrdersFeedCard = ({
 		[order]
 	);
 
-	//get all unique ingredients into an array
 	const getOrderIngredients = (order: string[]) => {
 		let result = order.map((ingredientId) => {
 			const ingredient = ingredients.find(
@@ -53,7 +52,7 @@ export const OrdersFeedCard = ({
 		});
 		return result;
 	};
-	//filter unique ingredients by id
+
 	const filterOrderIngredients = (ingredients: TIngredient[]) => {
 		const result = ingredients.filter(function (item, index) {
 			if (item)
