@@ -1,0 +1,62 @@
+.container {
+	display: flex;
+	margin: 0 auto;
+	width: 720px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius: 40px;
+}
+
+.name {
+	width: 640px;
+	text-align: center;
+}
+
+.status {
+	color: inherit;
+}
+
+.orders {
+	width: 640px;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	gap: 16px;
+	overflow-y: auto;
+	height: 240px;
+}
+
+.item {
+	display: flex;
+	flex-direction: row;
+	max-width: 540px;
+	justify-content: center;
+	align-items: center;
+}
+
+.order {
+	display: flex;
+	margin: 0 auto;
+	width: 540px;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.container {
+	display: flex;
+}
+
+.total {
+	display: flex;
+	gap: 8px;
+}
+
+.summary {
+	width: 640px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}

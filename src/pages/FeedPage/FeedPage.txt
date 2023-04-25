@@ -1,0 +1,160 @@
+import {
+  CurrencyIcon,
+  FormattedDate,
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC, useCallback, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getFeedAction } from "../../services/actions/data-modal";
+import { TIngredientWithCounter, TStore } from "../../types/types";
+import styles from "./FeedPage.module.css";
+import { IngredientIcon } from "../feeds-list/data-card/ingredient-icon/ingredient-icon";
+import { getIngredientById } from "../../utils/burger-api";
+import { getIngredientsAction } from "../../services/actions/burger-ingredients";
+import { IRootReducer } from "../../services/store";
+import { TOrderState } from "../../services/reducers/data/reducer";
+import { TIngredientsState } from "../../services/reducers/ingredients";
+import { TIngredient } from "../../types/ingredientTypes";
+
+export const FeedPage: FC = () => {
+  const { orderNumber } = useParams<{ orderNumber: string }>();
+
+  useEffect(() => {
+      getFeedAction(orderNumber);
+      //отключаю линтер потому что эффект должен отпрабатывать только при монтировании
+      // eslint-disable-next-line
+  }, []);
+
+  const { data } = useSelector<IRootReducer, TOrderState>((store) => {
+    console.log(store);
+    return store.liveOrder;
+  });
+
+  const { data: ingredients } = useSelector<TStore, TIngredientsState>(
+      (store) => store.ingredientsStore
+  );
+
+  useEffect(() => {
+      if (ingredients.length === 0) {
+          getIngredientsAction();
+      }
+      //отключаю линтер потому что эффект должен отпрабатывать только при монтировании
+      // eslint-disable-next-line
+  }, []);
+
+  const filterFeedIngredients = (ingredientsIds: string[]) => {
+      const result: { ingredientId: string; quantity: number }[] = [];
+      ingredientsIds.forEach((elem) => {
+          let index = result.findIndex((el) => {
+              return el.ingredientId === elem;
+          });
+          if (index === -1) {
+              result.push({ ingredientId: elem, quantity: 1 });
+          } else {
+              result[index].quantity += 1;
+          }
+      });
+      return result;
+  };
+
+  const getFeedIngredients = (
+      filteredIngredientsWithQuantity: {
+          ingredientId: string;
+          quantity: number;
+      }[]
+  ) => {
+      const result = filteredIngredientsWithQuantity.map((el) => {
+          return getIngredientById(el.ingredientId, ingredients);
+      });
+      return result;
+  };
+
+  const calculatePrice = useCallback(
+      (ingredients: TIngredient[] | undefined) => {
+          let price = 0;
+          let bunWasCalculated = false;
+          price = ingredients.reduce((accumulator, el) => {
+              if (el) {
+                  if (el.type === "bun" && !bunWasCalculated) {
+                      bunWasCalculated = true;
+                      return accumulator + el.price * 2;
+                  }
+                  if (el.type !== "bun") return accumulator + el.price;
+              }
+              return accumulator;
+          }, price);
+          return price;
+      },
+      //если измениться заказ, то и цена должна пересчитаться, хотя напрямую в коллбеке data и не используется
+      // eslint-disable-next-line
+      [data]
+  );
+
+  if (!data) return <p>order Not Found</p>;
+
+  const filteredIngredientsWithQuantity = filterFeedIngredients(
+      data.ingredients
+  );
+  const feedIngredients = getFeedIngredients(
+      filteredIngredientsWithQuantity
+  ) as TIngredientWithCounter[];
+  const feedPrice = calculatePrice(feedIngredients);
+  const feedStatus = data.status === "done" ? "Выполнен" : "Готовится";
+
+  return (
+      data && (
+          <div className={styles.details}>
+              <p
+                  className={`${styles.title} text text_type_digits-default mb-10`}
+              >
+                  #{data.number}
+              </p>
+              <p className=' text text_type_main-medium mb-2'>{data.name}</p>
+              <p
+                  className={`${
+                      data.status === "done" ? styles.Done : ""
+                  } text text_type_main-default mb-15`}
+              >
+                  {feedStatus}
+              </p>
+              <p className=' text text_type_main-medium mb-4'>Состав:</p>
+              <div className={`${styles.IngredientsList} mb-10`}>
+                  {filteredIngredientsWithQuantity.map((el, index) => {
+                      return (
+                          <div
+                              className={styles.Ingredient}
+                              key={feedIngredients[index]._id}
+                          >
+                              <IngredientIcon
+                                  img={feedIngredients[index].image_mobile}
+                              />
+                              <p className='text text_type_main-default'>
+                                  {feedIngredients[index].name}
+                              </p>
+                              <div className={styles.price}>
+                                  <p className='text text_type_digits-default'>
+                                      {el.quantity} x{" "}
+                                      {feedIngredients[index].price}
+                                  </p>
+                                  <CurrencyIcon type='primary' />
+                              </div>
+                          </div>
+                      );
+                  })}
+              </div>
+              <div className={`${styles.priceAndDate} mb-5`}>
+                  <FormattedDate
+                      className='text text_type_main-default text_color_inactive'
+                      date={new Date(data.createdAt)}
+                  />
+                  <div className={styles.price}>
+                      <p className='text text_type_digits-default'>
+                          {feedPrice}
+                      </p>
+                      <CurrencyIcon type='primary' />
+                  </div>
+              </div>
+          </div>
+      )
+  );
+};
