@@ -58,7 +58,7 @@
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
     "@types/uuid": "^9.0.1",
-    "cypress": "^12.10.0",
+    "cypress": "^12.11.0",
     "eslint-plugin-cypress": "^2.13.2",
     "fetch-mock": "^9.11.0",
     "gh-pages": "^5.0.0",
