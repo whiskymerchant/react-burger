@@ -1,11 +1,9 @@
-import { useSelector } from 'react-redux';
 import { OrdersFeedCard } from '../OrdersFeedCard/OrdersFeedCard';
 import styles from './OrdersFeedList.module.css';
 import { Link, useLocation } from 'react-router-dom';
 import { TOrderList } from '../../services/reducers/orders/reducer';
-import { IRootReducer } from '../../services/store';
-import { TIngredientsState } from '../../services/reducers/ingredients';
 import cn from 'classnames';
+import { useAppSelector } from '../../utils/hooks';
 
 export interface IOrdersFeedsList {
 	path: string;
@@ -13,7 +11,7 @@ export interface IOrdersFeedsList {
 }
 
 export const OrdersFeedsList = ({ path, data }: IOrdersFeedsList) => {
-	const { data: ingredients } = useSelector<IRootReducer, TIngredientsState>(
+	const { data: ingredients } = useAppSelector(
 		(store) => store.ingredientsStore
 	);
 

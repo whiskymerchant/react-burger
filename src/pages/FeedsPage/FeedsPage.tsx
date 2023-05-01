@@ -1,9 +1,8 @@
 import { FC, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styles from './FeedsPage.module.css';
 import { OrdersFeedsList } from '../../components/OrdersFeedList/OrdersFeedList';
 import OrdersBoardStatus from '../../components/OrdersBoard/OrdersBoardStatus';
-import { IRootReducer, Store } from '../../services/store';
+import { IRootReducer } from '../../services/store';
 import { TOrderState } from '../../services/reducers/feed/reducer';
 import { BURGER_API_WSS_FEED, BURGER_API_WSS_ORDERS } from '../../utils/api';
 import {
@@ -15,23 +14,20 @@ import {
 	wsDisconnectOrder
 } from '../../services/reducers/orders/actions';
 import cn from 'classnames';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 export const FeedsPage: FC = () => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	useEffect(() => {
 		dispatch(
 			wsConnectFeed({ wsUrl: BURGER_API_WSS_FEED, withTokenRefresh: false })
 		);
-		dispatch(
-			wsConnectOrder({ wsUrl: BURGER_API_WSS_ORDERS, withTokenRefresh: true })
-		);
 		return () => {
 			dispatch(wsDisconnectFeed());
-			dispatch(wsDisconnectOrder());
 		};
 	}, []);
 
-	const { data } = useSelector<IRootReducer, TOrderState>((store) => {
+	const { data } = useAppSelector((store) => {
 		return store.liveOrder;
 	});
 

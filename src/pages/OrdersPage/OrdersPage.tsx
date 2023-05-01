@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import cn from 'classnames';
 import styles from './OrdersPage.module.css';
 import { Link, useMatch } from 'react-router-dom';
-import { IRootReducer } from '../../services/store';
-import { useDispatch, useSelector } from 'react-redux';
 import { TOrder } from '../../services/reducers/orders/reducer';
 import {
 	wsConnectFeed,
@@ -15,6 +13,7 @@ import {
 } from '../../services/reducers/orders/actions';
 import { BURGER_API_WSS_FEED, BURGER_API_WSS_ORDERS } from '../../utils/api';
 import OrderInfo from '../../components/OrderInfo/OrderInfo';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 interface IProfileLogout {
 	onLogout: () => void;
@@ -24,21 +23,17 @@ const OrdersPage: React.FC<IProfileLogout> = ({ onLogout }) => {
 	const isProfile = useMatch('/profile');
 	const isOrders = useMatch('/profile/orders');
 
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	useEffect(() => {
-		dispatch(
-			wsConnectFeed({ wsUrl: BURGER_API_WSS_FEED, withTokenRefresh: false })
-		);
 		dispatch(
 			wsConnectOrder({ wsUrl: BURGER_API_WSS_ORDERS, withTokenRefresh: true })
 		);
 		return () => {
-			dispatch(wsDisconnectFeed());
 			dispatch(wsDisconnectOrder());
 		};
 	}, []);
 
-	const orders = useSelector((state: any) => state?.myOrders?.data?.orders);
+	const orders = useAppSelector((state) => state?.myOrders?.data?.orders);
 
 	return (
 		<div className={cn(styles.main_container)}>

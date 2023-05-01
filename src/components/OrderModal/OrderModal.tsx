@@ -6,18 +6,18 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useParams } from 'react-router-dom';
 import { RoundIcon } from '../RoundIcon/RoundIcon';
-import { useSelector } from 'react-redux';
 import { IRootReducer } from '../../services/store';
 import cn from 'classnames';
+import { useAppSelector } from '../../utils/hooks';
 
 const OrderModal = () => {
 	const id = useParams();
 
-	const ingredients = useSelector(
+	const ingredients = useAppSelector(
 		(state: IRootReducer) => state.ingredientsStore.data
 	);
 
-	const orders = useSelector(
+	const orders = useAppSelector(
 		(state: IRootReducer) => state.liveOrder.data?.orders
 	);
 

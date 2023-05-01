@@ -62,7 +62,7 @@ export const fetchWithCheck = async (url: string, options?: TRequest) => {
 	return await fetch(url, options).then(listenRequest);
 };
 
-export const listenRequest = (res: any) => {
+export const listenRequest = (res: Response) => {
 	return res.ok
 		? res.json()
 		: res
@@ -80,7 +80,7 @@ export const getIngredients = () => {
 		});
 };
 
-export const sendOrder = async (data: unknown) => {
+export const sendOrder = async (data: string[]) => {
 	const res = await fetchWithCheck(`${BURGER_INGREDIENTS_API}/orders`, {
 		method: 'POST',
 		headers: {

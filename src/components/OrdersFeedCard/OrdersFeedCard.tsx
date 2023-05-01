@@ -6,7 +6,6 @@ import {
 import styles from './OrdersFeedCard.module.css';
 import { TIngredient } from '../../types/ingredientTypes';
 import { IngredientBar } from '../IngredientBar/IngredientBar';
-import { TOrder } from '../../services/reducers/orders/reducer';
 import cn from 'classnames';
 
 interface IOrdersFeedCard {
