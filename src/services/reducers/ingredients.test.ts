@@ -21,7 +21,6 @@ describe('ingredientSlice reducer', () => {
 	});
 
 	it('test increaseCount', () => {
-		let count;
 		expect(
 			ingredientSlice(initialState, {
 				payload: fakeIngredient,
@@ -41,7 +40,7 @@ describe('ingredientSlice reducer', () => {
 		).toEqual(initialState);
 	});
 
-	it('test ingredientSlice fulfilled', () => {
+	it('test fetchIngredientsThunk fulfilled', () => {
 		expect(
 			ingredientSlice(initialState, {
 				payload: [fakeBun, fakeIngredient],
@@ -54,7 +53,7 @@ describe('ingredientSlice reducer', () => {
 		});
 	});
 
-	it('test ingredientSlice pending', () => {
+	it('test fetchIngredientsThunk pending', () => {
 		expect(
 			ingredientSlice(initialState, {
 				type: fetchIngredientsThunk.pending
@@ -66,7 +65,7 @@ describe('ingredientSlice reducer', () => {
 		});
 	});
 
-	it('test ingredientSlice rejected', () => {
+	it('test fetchIngredientsThunk rejected', () => {
 		expect(
 			ingredientSlice(initialState, {
 				payload: fakeIngredientsReject,

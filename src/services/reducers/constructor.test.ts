@@ -11,7 +11,7 @@ describe('constructorSlice', () => {
 		ingredients: []
 	};
 
-	it('test burgerConstructorSlice', () => {
+	it('test constructorSlice', () => {
 		expect(
 			constructorSlice(initialState, {
 				type: addConstructor.type,
