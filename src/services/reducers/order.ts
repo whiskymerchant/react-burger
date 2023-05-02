@@ -16,7 +16,7 @@ export interface IInitialState {
 	error?: boolean | unknown;
 }
 
-const initialState: IInitialState = {
+export const initialState: IInitialState = {
 	data: null,
 	isLoading: false,
 	error: null

@@ -10,6 +10,7 @@ import { IRootReducer } from '../../services/store';
 import cn from 'classnames';
 import { TOrder } from '../../services/reducers/orders/reducer';
 import { useAppSelector } from '../../utils/hooks';
+import { v4 } from 'uuid';
 
 const OrderInfo = ({ order }: { order: TOrder }) => {
 	const ingredients = useAppSelector(
@@ -56,7 +57,7 @@ const OrderInfo = ({ order }: { order: TOrder }) => {
 				<div className={styles.container}>
 					<div className={styles.images}>
 						{orderIngredients.map((item) => {
-							return <RoundIcon img={item.image_mobile} />;
+							return <RoundIcon img={item.image_mobile} key={v4()}/>;
 						})}
 					</div>
 					<div className={styles.price}>

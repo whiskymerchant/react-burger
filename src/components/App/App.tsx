@@ -14,7 +14,6 @@ import {
 	useNavigate
 } from 'react-router-dom';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
-import FullPage from '../../pages/FullPage/FullPage';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
@@ -48,7 +47,7 @@ const App = () => {
 		navigate(background.pathname || '/', { replace: true });
 	};
 
-	const cbLogin: any = (dataUser: IRegisterUser) => {
+	const cbLogin = (dataUser: IRegisterUser | void) => {
 		dispatch(
 			loginUser({
 				dataUser,
@@ -112,7 +111,10 @@ const App = () => {
 				<Route path="/reset-password" element={<ResetPassword />} />
 				<Route path="*" element={<NotFound />} />
 
-				<Route path="/ingredient/:idIngredient" element={<FullPage />} />
+				<Route
+					path="/ingredient/:idIngredient"
+					element={<IngredientDetails />}
+				/>
 				<Route path="/feed" element={<FeedsPage />} />
 				<Route path="/feed/:idOrder" element={<OrderModal />} />
 				<Route

@@ -4,23 +4,18 @@ import {
 	fakeIngredientsReject
 } from '../../utils/test-data';
 import ingredientSlice, {
-	TIngredientsState,
 	fetchIngredientsThunk,
-	increaseCount
+	increaseCount,
+	initialState
 } from './ingredients';
 
 describe('ingredientSlice reducer', () => {
-	const initialState: TIngredientsState = {
-		data: [],
-		isLoading: false,
-		error: null
-	};
-
 	it('test initial state', () => {
 		expect(ingredientSlice(initialState, { type: '' })).toEqual(initialState);
 	});
 
 	it('test increaseCount', () => {
+		let count;
 		expect(
 			ingredientSlice(initialState, {
 				payload: fakeIngredient,
@@ -40,7 +35,7 @@ describe('ingredientSlice reducer', () => {
 		).toEqual(initialState);
 	});
 
-	it('test fetchIngredientsThunk fulfilled', () => {
+	it('test ingredientSlice fulfilled', () => {
 		expect(
 			ingredientSlice(initialState, {
 				payload: [fakeBun, fakeIngredient],
@@ -53,7 +48,7 @@ describe('ingredientSlice reducer', () => {
 		});
 	});
 
-	it('test fetchIngredientsThunk pending', () => {
+	it('test ingredientSlice pending', () => {
 		expect(
 			ingredientSlice(initialState, {
 				type: fetchIngredientsThunk.pending
@@ -65,7 +60,7 @@ describe('ingredientSlice reducer', () => {
 		});
 	});
 
-	it('test fetchIngredientsThunk rejected', () => {
+	it('test ingredientSlice rejected', () => {
 		expect(
 			ingredientSlice(initialState, {
 				payload: fakeIngredientsReject,

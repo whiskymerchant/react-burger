@@ -1,12 +1,12 @@
 import { fakeWsOrdersData } from '../../../utils/test-data';
 import { TOrderState } from '../feed/reducer';
 import { wsMessageOrder } from './actions';
-import { ordersReducer } from './reducer';
+import { initialState, ordersReducer } from './reducer';
 
 describe('ordersReducer', () => {
-	const initialState: TOrderState = {
-		data: null
-	};
+	// const initialState: TOrderState = {
+	// 	data: null
+	// };
 
 	it('test initialState', () => {
 		expect(ordersReducer(undefined, { type: '' })).toEqual(initialState);

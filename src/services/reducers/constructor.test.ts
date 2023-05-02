@@ -1,17 +1,12 @@
 import { fakeBun, fakeIngredient } from '../../utils/test-data';
 import constructorSlice, {
-	IConstructor,
 	addConstructor,
+	initialState,
 	removeConstructor
 } from './constructor';
 
 describe('constructorSlice', () => {
-	const initialState: IConstructor = {
-		bun: null,
-		ingredients: []
-	};
-
-	it('test constructorSlice', () => {
+	it('test ConstructorSlice', () => {
 		expect(
 			constructorSlice(initialState, {
 				type: addConstructor.type,

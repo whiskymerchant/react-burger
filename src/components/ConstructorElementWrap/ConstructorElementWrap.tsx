@@ -12,8 +12,15 @@ import styles from './ConstructorElementWrap.module.css';
 import { useDrag, useDrop } from 'react-dnd';
 import { decreaseCount } from '../../services/reducers/ingredients';
 import { useAppDispatch } from '../../utils/hooks';
+import { TIngredient } from '../../types/ingredientTypes';
 
-function ConstructorElementWrap({ data, index }: any) {
+function ConstructorElementWrap({
+	data,
+	index
+}: {
+	data: TIngredient;
+	index: number;
+}) {
 	const ref: any = useRef();
 	const dispatch = useAppDispatch();
 
@@ -65,6 +72,7 @@ function ConstructorElementWrap({ data, index }: any) {
 		<div ref={ref} className={cn(styles.constructor_container)}>
 			<DragIcon type="primary" />
 			<ConstructorElement
+				price={data.price}
 				thumbnail={data.image}
 				key={data.id}
 				text={data.name}
@@ -72,7 +80,6 @@ function ConstructorElementWrap({ data, index }: any) {
 					dispatch(decreaseCount(data._id));
 					dispatch(removeConstructor(data.id));
 				}}
-				{...data}
 			/>
 		</div>
 	);

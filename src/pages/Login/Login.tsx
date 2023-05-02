@@ -24,7 +24,7 @@ const Login: React.FC<TLoginProps> = ({ onLogin, user }: any) => {
 
 	const navigate = useNavigate();
 
-	const onSubmit = (event: any) => {
+	const onSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
 		onLogin({ email, password });
 	};
@@ -54,20 +54,20 @@ const Login: React.FC<TLoginProps> = ({ onLogin, user }: any) => {
 				extraClass="mb-6"
 				name={'password'}
 				placeholder="Пароль"
-			></PasswordInput>
+			/>
 			<Button extraClass="mb-20" htmlType="submit" type="primary" size="large">
 				Войти
 			</Button>
 			<div className={cn(styles.bottom_div)}>
 				<p className="text text_type_main-small">Вы — новый пользователь?</p>
 				<Link to="/register">
-					<a className="text text_type_main-small">Зарегистрироваться</a>
+					<p className="text text_type_main-small">Зарегистрироваться</p>
 				</Link>
 			</div>
 			<div className={cn(styles.bottom_div)}>
 				<p className="text text_type_main-small">Забыли пароль?</p>
 				<Link to="/forgot-password">
-					<a className="text text_type_main-small">Восстановить пароль</a>
+					<p className="text text_type_main-small">Восстановить пароль</p>
 				</Link>
 			</div>
 		</form>

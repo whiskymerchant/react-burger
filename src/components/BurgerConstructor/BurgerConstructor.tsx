@@ -18,8 +18,9 @@ import { useNavigate } from 'react-router-dom';
 import { IRootReducer } from '../../services/store';
 import { TIngredient } from '../../types/ingredientTypes';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { IRegisterUser } from '../../utils/api';
 
-const BurgerConstructor = ({ user }: any) => {
+const BurgerConstructor = ({ user }: { user: IRegisterUser }) => {
 	const { bun, ingredients } = useAppSelector(
 		(state: IRootReducer) => state.constructorStore
 	);

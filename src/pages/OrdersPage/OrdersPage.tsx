@@ -14,6 +14,7 @@ import {
 import { BURGER_API_WSS_FEED, BURGER_API_WSS_ORDERS } from '../../utils/api';
 import OrderInfo from '../../components/OrderInfo/OrderInfo';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { v4 } from 'uuid';
 
 interface IProfileLogout {
 	onLogout: () => void;
@@ -76,7 +77,7 @@ const OrdersPage: React.FC<IProfileLogout> = ({ onLogout }) => {
 					В этом разделе вы можете посмотреть свои заказы
 				</div>
 			</div>
-			<div className={cn(styles.right_container, 'custom-scroll')}>
+			<div className={cn(styles.right_container, 'custom-scroll')} key={v4()}>
 				{orders && orders.length > 0 ? (
 					<div className={cn(styles.container, 'custom-scroll')}>
 						{orders?.map((order: TOrder) => {

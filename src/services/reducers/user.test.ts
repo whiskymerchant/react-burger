@@ -1,27 +1,13 @@
 import { fakeUserInfo, fakeUserInfoReject } from '../../utils/test-data';
 import userReducer, {
-	TUserState,
 	authCheck,
 	checkUserAuth,
+	initialState,
 	loginUser,
 	registerUser
 } from './user';
 
 describe('user reducer', () => {
-	const initialState: TUserState = {
-		isAuthChecked: false,
-		data: null,
-
-		registerUserError: null,
-		registerUserRequest: false,
-
-		loginUserError: null,
-		loginUserRequest: false,
-
-		getUserError: null,
-		getUserRequest: false
-	};
-
 	it('test initialState', () => {
 		expect(userReducer(initialState, { type: '' })).toEqual(initialState);
 	});

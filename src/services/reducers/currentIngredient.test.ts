@@ -1,11 +1,7 @@
-import ingredientSlice, {
-	TCurrentIngredient,
-	closeModal,
-	openModal
-} from './currentIngredient';
+import ingredientSlice, { closeModal, openModal } from './currentIngredient';
 
 describe('ingredientSlice reducer', () => {
-	const initialState: TCurrentIngredient = null;
+	const initialState = null; // не получается вынести, TS выдает ошибку
 
 	it('test initial state', () => {
 		expect(ingredientSlice(initialState, { type: '' })).toEqual(initialState);

@@ -28,7 +28,7 @@ type TOrderState = {
 	data: TOrderList | null;
 };
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
 	data: null
 };
 

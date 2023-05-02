@@ -36,7 +36,7 @@ export interface TUserState {
 	getUserRequest: boolean;
 }
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
 	isAuthChecked: false,
 	data: null,
 

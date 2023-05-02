@@ -1,13 +1,7 @@
 import { fakeOrder } from '../../utils/test-data';
-import { IInitialState, fetchOrderSlice, orderSlice } from './order';
+import { fetchOrderSlice, initialState, orderSlice } from './order';
 
 describe('burgerOrderInfoSlice reducer', () => {
-	const initialState: IInitialState = {
-		data: null,
-		isLoading: false,
-		error: null
-	};
-
 	it('test initial state', () => {
 		expect(orderSlice.reducer(initialState, { type: '' })).toEqual(
 			initialState
