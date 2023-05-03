@@ -15,7 +15,6 @@ import { wsConnectFeed } from '../../services/reducers/feed/actions';
 import { BURGER_API_WSS_FEED, BURGER_API_WSS_ORDERS } from '../../utils/api';
 import { wsDisconnectOrder } from '../../services/reducers/orders/actions';
 import { wsDisconnectFeed } from '../../services/reducers/feed/actions';
-import { isTemplateExpression } from 'typescript';
 
 const OrderModal = () => {
 	const dispatch = useAppDispatch();
@@ -39,9 +38,7 @@ const OrderModal = () => {
 
 	const id = useParams();
 
-	const ingredients = useAppSelector(
-		(state: IRootReducer) => state.ingredientsStore.data
-	);
+	const ingredients = useAppSelector((state) => state.ingredientsStore.data);
 
 	const liveOrder = useAppSelector((state) => state.liveOrder.data?.orders);
 	const myOrders = useAppSelector((state) => state.myOrders.data?.orders);
@@ -67,7 +64,6 @@ const OrderModal = () => {
 		0
 	);
 
-	console.log("order", order);
 	return (
 		<div className={styles.container} key={order?._id}>
 			<p className="text text_type_digits-default mt-10">#{order?.number}</p>

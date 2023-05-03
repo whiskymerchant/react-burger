@@ -4,13 +4,10 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import cn from 'classnames';
 import IngredientCategory from '../IngredientCategory/IngredientCategory';
 import { useInView } from 'react-intersection-observer';
-import { IRootReducer } from '../../services/store';
 import { useAppSelector } from '../../utils/hooks';
 
 const BurgerIngredients = () => {
-	const ingredients = useAppSelector(
-		(state: IRootReducer) => state.ingredientsStore.data
-	);
+	const ingredients = useAppSelector((state) => state.ingredientsStore.data);
 	const [current, setCurrent] = React.useState('bun');
 	const breads = React.useMemo(() => {
 		// debugger;
@@ -25,7 +22,7 @@ const BurgerIngredients = () => {
 		return ingredients.filter((item) => item.type === 'main');
 	}, [ingredients]);
 
-	function switchIngredientsTab(tab: any) {
+	function switchIngredientsTab(tab: string) {
 		setCurrent(tab);
 		const ingredientName = document.getElementById(tab);
 		if (ingredientName) {

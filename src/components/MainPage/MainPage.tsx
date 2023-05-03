@@ -6,8 +6,9 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import cn from 'classnames';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { IRegisterUser } from '../../utils/api';
 
-const MainPage = ({ user }: any) => {
+const MainPage = ({ user }: { user: IRegisterUser }) => {
 	return (
 		<main className={cn(styles.main)}>
 			<DndProvider backend={HTML5Backend}>

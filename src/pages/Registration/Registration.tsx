@@ -4,14 +4,20 @@ import {
 	PasswordInput,
 	Input
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
 import cn from 'classnames';
 import styles from './Registration.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
 import { IRegisterUser } from '../../utils/api';
 
-const Registration = ({ onRegister, user }: any) => {
+const Registration = ({
+	onRegister,
+	user
+}: {
+	onRegister: (userData: IRegisterUser) => void;
+	user: string;
+}) => {
 	const [userData, setUserData] = React.useState({
 		email: '',
 		password: '',
@@ -20,7 +26,7 @@ const Registration = ({ onRegister, user }: any) => {
 
 	const navigate = useNavigate();
 
-	const handleChange = (e: any) => {
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		setUserData({
 			...userData,
@@ -29,7 +35,7 @@ const Registration = ({ onRegister, user }: any) => {
 	};
 
 	const [message, setMessage] = React.useState<any>('');
-	const handleSubmit = (e: any) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		onRegister(userData);
 	};

@@ -67,7 +67,9 @@ export const listenRequest = (res: Response) => {
 		? res.json()
 		: res
 				.json()
-				.then((err: any) => Promise.reject({ ...err, statusCode: res.status }));
+				.then((err: Error) =>
+					Promise.reject({ ...err, statusCode: res.status })
+				);
 };
 
 export const getIngredients = () => {

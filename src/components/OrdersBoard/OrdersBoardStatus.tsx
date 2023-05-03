@@ -28,6 +28,7 @@ const OrdersBoardStatus: FC = () => {
 							{feedsDone.map((el) => {
 								return (
 									<p
+										key={el._id}
 										className={cn(
 											styles.ready,
 											'text text_type_digits-default mb-2'

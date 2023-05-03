@@ -1,14 +1,11 @@
 import styles from './IngredientDetails.module.css';
 import cn from 'classnames';
 import { useParams } from 'react-router-dom';
-import { IRootReducer } from '../../services/store';
 import { useAppSelector } from '../../utils/hooks';
 
 const IngredientDetails = () => {
 	const { idIngredient } = useParams();
-	const ingredients = useAppSelector(
-		(state: IRootReducer) => state.ingredientsStore.data
-	);
+	const ingredients = useAppSelector((state) => state.ingredientsStore.data);
 	const currentIngredient = ingredients.find(
 		(item) => item._id === idIngredient
 	);

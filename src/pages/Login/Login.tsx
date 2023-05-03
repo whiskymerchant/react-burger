@@ -13,12 +13,13 @@ import { getCookie } from '../../utils/cookie';
 import { ILoginUser } from '../../utils/api';
 import { useAppDispatch } from '../../utils/hooks';
 
-type TLoginProps = {
-	onLogin: () => void;
+const Login = ({
+	onLogin,
+	user
+}: {
+	onLogin: (data: ILoginUser) => void;
 	user: ILoginUser;
-};
-
-const Login: React.FC<TLoginProps> = ({ onLogin, user }: any) => {
+}) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 

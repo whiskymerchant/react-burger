@@ -21,6 +21,7 @@ import {
 	IRegisteredUserRequest,
 	IUserRequest
 } from '../../utils/api';
+import { IRootReducer } from '../store';
 
 export interface TUserState {
 	isAuthChecked: boolean;
@@ -151,14 +152,20 @@ const user = createSlice({
 				state.data = action.payload;
 				state.loginUserRequest = false;
 			})
-			.addMatcher(isActionPending, (state: any, action) => {
-				state[`${getActionName(action.type)}Request`] = true;
-				state[`${getActionName(action.type)}Error`] = null;
-			})
-			.addMatcher(isActionRejected, (state: any, action) => {
-				state[`${getActionName(action.type)}Error`] = action.payload;
-				state[`${getActionName(action.type)}Request`] = false;
-			});
+			.addMatcher(
+				isActionPending,
+				(state: { [key: string]: unknown }, action) => {
+					state[`${getActionName(action.type)}Request`] = true;
+					state[`${getActionName(action.type)}Error`] = null;
+				}
+			)
+			.addMatcher(
+				isActionRejected,
+				(state: { [key: string]: unknown }, action) => {
+					state[`${getActionName(action.type)}Error`] = action.payload;
+					state[`${getActionName(action.type)}Request`] = false;
+				}
+			);
 	}
 });
 

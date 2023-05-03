@@ -15,14 +15,13 @@ import { increaseCount } from '../../services/reducers/ingredients';
 import ConstructorElementWrap from '../ConstructorElementWrap/ConstructorElementWrap';
 import Modal from '../Modal/Modal';
 import { useNavigate } from 'react-router-dom';
-import { IRootReducer } from '../../services/store';
 import { TIngredient } from '../../types/ingredientTypes';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { IRegisterUser } from '../../utils/api';
 
 const BurgerConstructor = ({ user }: { user: IRegisterUser }) => {
 	const { bun, ingredients } = useAppSelector(
-		(state: IRootReducer) => state.constructorStore
+		(state) => state.constructorStore
 	);
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();

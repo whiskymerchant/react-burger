@@ -9,7 +9,7 @@ import {
 } from '../../services/reducers/constructor';
 import cn from 'classnames';
 import styles from './ConstructorElementWrap.module.css';
-import { useDrag, useDrop } from 'react-dnd';
+import { XYCoord, useDrag, useDrop } from 'react-dnd';
 import { decreaseCount } from '../../services/reducers/ingredients';
 import { useAppDispatch } from '../../utils/hooks';
 import { TIngredient } from '../../types/ingredientTypes';
@@ -21,7 +21,7 @@ function ConstructorElementWrap({
 	data: TIngredient;
 	index: number;
 }) {
-	const ref: any = useRef();
+	const ref = useRef<HTMLInputElement>(null);
 	const dispatch = useAppDispatch();
 
 	const [{ isDragSorted }, dragRefSorted] = useDrag({
@@ -53,8 +53,8 @@ function ConstructorElementWrap({
 			const hoverBoundingRect = ref.current?.getBoundingClientRect();
 			const hoverMiddleY =
 				(hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-			const clientOffset: any = monitor.getClientOffset();
-			const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+			const clientOffset: XYCoord | null = monitor.getClientOffset();
+			const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
 			if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
 				return;
 			}

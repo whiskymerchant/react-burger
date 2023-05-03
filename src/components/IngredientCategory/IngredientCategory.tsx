@@ -13,7 +13,10 @@ interface IIngredientCategory {
 }
 
 const IngredientCategory = React.forwardRef(
-	({ title, id, ingredients }: IIngredientCategory, ref: any) => {
+	(
+		{ title, id, ingredients }: IIngredientCategory,
+		ref: React.Ref<HTMLInputElement> | undefined
+	) => {
 		const dispatch = useAppDispatch();
 
 		return (
