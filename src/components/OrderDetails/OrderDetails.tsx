@@ -1,10 +1,9 @@
 import styles from './OrderDetails.module.css';
 import cn from 'classnames';
-import { useSelector } from 'react-redux';
-import { IRootReducer } from '../../services/store';
+import { useAppSelector } from '../../utils/hooks';
 
 const OrderDetails = () => {
-	const order = useSelector((state: IRootReducer) => state.orderBin);
+	const order = useAppSelector((state) => state.orderBin);
 	return (
 		<div className="pt-30 pb-30">
 			<p

@@ -7,18 +7,13 @@ import {
 import cn from 'classnames';
 import styles from './Profile.module.css';
 import { getUser } from '../../utils/api';
-import { useDispatch } from 'react-redux';
 import { updateUser } from '../../services/reducers/user';
-import { ThunkDispatch } from 'redux-thunk';
-import { Store } from '../../services/store';
-import { AnyAction } from 'redux';
 import { Link, useMatch } from 'react-router-dom';
+import { useAppDispatch } from '../../utils/hooks';
 
 interface IProfileLogout {
 	onLogout: () => void;
 }
-
-type AppDispatch = ThunkDispatch<Store, any, AnyAction>;
 
 const Profile: React.FC<IProfileLogout> = ({ onLogout }) => {
 	const [name, setName] = React.useState('');
@@ -28,7 +23,7 @@ const Profile: React.FC<IProfileLogout> = ({ onLogout }) => {
 	const isProfile = useMatch('/profile');
 	const isOrders = useMatch('/profile/orders');
 
-	const dispatch: AppDispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	React.useEffect(() => {
 		getUser().then((responce) => {

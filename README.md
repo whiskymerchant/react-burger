@@ -7,11 +7,17 @@
 
 ## Где купить
 
-Чтобы заказать скорую доставку бургера, пройдите по [ссылке](https://whiskymerchant.github.io/react-burger/).
+Чтобы заказать скорую доставку бургера, пройдите по [ссылке](http://frail-grasp.nomoredomains.monster/).
 
 ### Какие технологии мы использовали:
 
 React Native,
 JS, JSX, HTML, CSS,
 GitHub, VS Code, NPM,
-React-DnD, Redux
+React-DnD, Redux,
+Cypress, Jest.
+
+#### Ну и конечно спасибо ЯП
+
+"...Frail grasp on the big picture
+Light fading and the fog is getting thicker..."

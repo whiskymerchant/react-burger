@@ -28,7 +28,7 @@ type TOrderState = {
 	data: TOrderList | null;
 };
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
 	data: null
 };
 
@@ -43,8 +43,6 @@ export const ordersReducer = createReducer(initialState, (builder) => {
 		})
 		.addCase(wsErrorOrder, (state, action) => {})
 		.addCase(wsMessageOrder, (state, action) => {
-			console.log(123123, action.payload);
-
 			state.data = action.payload;
 		});
 });

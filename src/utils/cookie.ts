@@ -2,7 +2,7 @@ type TOptions = Record<string, any> & {
 	expires?: number | string | Date;
 };
 
-export function getCookie(name: any) {
+export function getCookie(name: string) {
 	const matches = document.cookie.match(
 		// eslint-disable-next-line no-useless-escape
 		new RegExp(
@@ -14,7 +14,7 @@ export function getCookie(name: any) {
 	return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name: string, value: any, options: TOptions = {}) {
+export function setCookie(name: string, value: string, options: TOptions = {}) {
 	const props = {
 		path: '/',
 		...options

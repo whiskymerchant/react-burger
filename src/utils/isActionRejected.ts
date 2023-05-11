@@ -1,6 +1,6 @@
 interface actionType {
   type: string;
-  payload: any;
+  payload: undefined;
 }
 
 function isActionRejected(action: actionType) {

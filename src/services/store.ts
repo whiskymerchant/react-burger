@@ -4,7 +4,6 @@ import constructor, { IConstructor } from './reducers/constructor';
 import ingredient, { TCurrentIngredient } from './reducers/currentIngredient';
 import order, { IInitialState } from './reducers/order';
 import user, { TUserState } from './reducers/user';
-import { useDispatch } from 'react-redux';
 import { socketMiddleware } from './middleware/socket-middleware';
 import { TOrder, ordersReducer } from './reducers/orders/reducer';
 import {
@@ -84,9 +83,5 @@ const store = configureStore({
 			}
 		}).concat(websocketOrderMiddleware, websocketFeedMiddleware)
 });
-
-export type Store = typeof store.dispatch;
-export const useAppDispatch: () => Store = useDispatch;
-// export type RootState = typeof store.getState;
 
 export default store;

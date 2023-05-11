@@ -1,15 +1,11 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import styles from './OrdersBoardStatus.module.css';
-import { IRootReducer } from '../../services/store';
-import { TOrderState } from '../../services/reducers/feed/reducer';
 import { TOrder } from '../../services/reducers/orders/reducer';
 import cn from 'classnames';
+import { useAppSelector } from '../../utils/hooks';
 
 const OrdersBoardStatus: FC = () => {
-	const { data } = useSelector<IRootReducer, TOrderState>(
-		(store) => store.liveOrder
-	);
+	const { data } = useAppSelector((store) => store.liveOrder);
 
 	if (!data) return <p>Error</p>;
 
@@ -32,6 +28,7 @@ const OrdersBoardStatus: FC = () => {
 							{feedsDone.map((el) => {
 								return (
 									<p
+										key={el._id}
 										className={cn(
 											styles.ready,
 											'text text_type_digits-default mb-2'

@@ -6,15 +6,12 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { RoundIcon } from '../RoundIcon/RoundIcon';
-import { useSelector } from 'react-redux';
-import { IRootReducer } from '../../services/store';
-import cn from 'classnames';
 import { TOrder } from '../../services/reducers/orders/reducer';
+import { useAppSelector } from '../../utils/hooks';
+import { v4 } from 'uuid';
 
 const OrderInfo = ({ order }: { order: TOrder }) => {
-	const ingredients = useSelector(
-		(state: IRootReducer) => state.ingredientsStore.data
-	);
+	const ingredients = useAppSelector((state) => state.ingredientsStore.data);
 
 	const orderIngredients = ingredients.filter((ingredient) =>
 		order?.ingredients.includes(ingredient._id)
@@ -56,7 +53,7 @@ const OrderInfo = ({ order }: { order: TOrder }) => {
 				<div className={styles.container}>
 					<div className={styles.images}>
 						{orderIngredients.map((item) => {
-							return <RoundIcon img={item.image_mobile} />;
+							return <RoundIcon img={item.image_mobile} key={v4()} />;
 						})}
 					</div>
 					<div className={styles.price}>

@@ -1,27 +1,55 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useEffect } from 'react';
 import styles from './OrderModal.module.css';
 import {
 	CurrencyIcon,
 	FormattedDate
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { RoundIcon } from '../RoundIcon/RoundIcon';
-import { useSelector } from 'react-redux';
 import { IRootReducer } from '../../services/store';
 import cn from 'classnames';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { TOrder } from '../../services/reducers/orders/reducer';
+import { wsConnectOrder } from '../../services/reducers/orders/actions';
+import { wsConnectFeed } from '../../services/reducers/feed/actions';
+import { BURGER_API_WSS_FEED, BURGER_API_WSS_ORDERS } from '../../utils/api';
+import { wsDisconnectOrder } from '../../services/reducers/orders/actions';
+import { wsDisconnectFeed } from '../../services/reducers/feed/actions';
 
 const OrderModal = () => {
+	const dispatch = useAppDispatch();
+
+	const isWSConnected = useAppSelector((state) => state.liveOrder.data);
+
+	useEffect(() => {
+		if (!isWSConnected) {
+			dispatch(
+				wsConnectOrder({ wsUrl: BURGER_API_WSS_ORDERS, withTokenRefresh: true })
+			);
+			dispatch(
+				wsConnectFeed({ wsUrl: BURGER_API_WSS_FEED, withTokenRefresh: false })
+			);
+			return () => {
+				dispatch(wsDisconnectOrder());
+				dispatch(wsDisconnectFeed());
+			};
+		}
+	}, []);
+
 	const id = useParams();
 
-	const ingredients = useSelector(
-		(state: IRootReducer) => state.ingredientsStore.data
-	);
+	const ingredients = useAppSelector((state) => state.ingredientsStore.data);
 
-	const orders = useSelector(
-		(state: IRootReducer) => state.liveOrder.data?.orders
-	);
+	const liveOrder = useAppSelector((state) => state.liveOrder.data?.orders);
+	const myOrders = useAppSelector((state) => state.myOrders.data?.orders);
 
-	const order = orders?.find((order: any) => order._id === id.idOrder);
+	const location = useLocation();
+
+	const orders = location.pathname.includes('/profile/orders')
+		? myOrders
+		: liveOrder;
+
+	const order = orders?.find((order) => order._id === id.idOrder);
 
 	const orderIngredients = ingredients.filter((ingredient) =>
 		order?.ingredients.includes(ingredient._id)
@@ -37,7 +65,7 @@ const OrderModal = () => {
 	);
 
 	return (
-		<div className={styles.container}>
+		<div className={styles.container} key={order?._id}>
 			<p className="text text_type_digits-default mt-10">#{order?.number}</p>
 			<p className={cn(styles.name, 'text text_type_main-medium mt-10')}>
 				{order?.name}

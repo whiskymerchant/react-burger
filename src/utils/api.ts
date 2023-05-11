@@ -6,9 +6,9 @@ interface IHeaders {
 }
 
 export interface IRegisterUser {
-	email: string;
-	password: string;
-	name: string;
+	email?: string;
+	password?: string;
+	name?: string;
 }
 
 export interface ILoginUser {
@@ -42,7 +42,7 @@ export interface IUserRequest {
 }
 
 export interface IRegisteredUserRequest extends IUserRequest {
-	dataUser: IRegisterUser;
+	dataUser: IRegisterUser | void;
 }
 
 export const BURGER_INGREDIENTS_API = 'https://norma.nomoreparties.space/api';
@@ -62,12 +62,14 @@ export const fetchWithCheck = async (url: string, options?: TRequest) => {
 	return await fetch(url, options).then(listenRequest);
 };
 
-export const listenRequest = (res: any) => {
+export const listenRequest = (res: Response) => {
 	return res.ok
 		? res.json()
 		: res
 				.json()
-				.then((err: any) => Promise.reject({ ...err, statusCode: res.status }));
+				.then((err: Error) =>
+					Promise.reject({ ...err, statusCode: res.status })
+				);
 };
 
 export const getIngredients = () => {
@@ -80,7 +82,7 @@ export const getIngredients = () => {
 		});
 };
 
-export const sendOrder = async (data: unknown) => {
+export const sendOrder = async (data: string[]) => {
 	const res = await fetchWithCheck(`${BURGER_INGREDIENTS_API}/orders`, {
 		method: 'POST',
 		headers: {
@@ -130,7 +132,7 @@ export const fetchWithRefresh = async (url: string, options: RequestInit) => {
 	}
 };
 
-export const registerUser = (data: IRegisterUser) => {
+export const registerUser = (data: void | IRegisterUser) => {
 	return fetch(`${BURGER_INGREDIENTS_API}/auth/register`, {
 		method: 'POST',
 		headers: {
@@ -145,7 +147,7 @@ export const registerUser = (data: IRegisterUser) => {
 		});
 };
 
-export const loginUser = (data: ILoginUser) => {
+export const loginUser = (data: void | IRegisterUser) => {
 	return fetch(`${BURGER_INGREDIENTS_API}/auth/login`, {
 		method: 'POST',
 		headers: {
@@ -227,7 +229,7 @@ export const sendCode = (data: ISendCode) => {
 		});
 };
 
-export const userInfoUpdate = (data: IUserInfoUpdate) => {
+export const userInfoUpdate = (data: void | IRegisterUser) => {
 	return fetch(`${BURGER_INGREDIENTS_API}/auth/user`, {
 		method: 'PATCH',
 		headers: {
